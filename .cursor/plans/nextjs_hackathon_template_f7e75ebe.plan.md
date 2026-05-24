@@ -4,25 +4,25 @@ overview: Scaffold a production-quality Next.js 16 hackathon template at the rep
 todos:
   - id: scaffold
     content: Run create-next-app at repo root (TS, Tailwind v4, App Router, ESLint, no src/)
-    status: in_progress
+    status: completed
   - id: shadcn
     content: Initialize shadcn/ui and add button + card components
-    status: pending
+    status: completed
   - id: authjs
     content: Install next-auth@beta + prisma-adapter; create lib/auth.ts, route handler, proxy.ts, sign-in/out components
-    status: pending
+    status: completed
   - id: prisma
     content: Install Prisma, init schema with Auth.js models + Supabase dual-URL datasource, create lib/prisma.ts singleton and seed stub
-    status: pending
+    status: completed
   - id: pages
     content: Build landing, protected dashboard route, and SiteNav with auth-aware UI
-    status: pending
+    status: completed
   - id: env-docs
     content: Write .env.example, README setup guide, and package.json db:* scripts
-    status: pending
+    status: completed
   - id: verify
     content: Run npm run lint and npm run build to confirm a clean baseline
-    status: pending
+    status: completed
 isProject: false
 ---
 
