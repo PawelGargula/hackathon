@@ -29,8 +29,8 @@ export default async function HomePage() {
           Hackathon Template
         </h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
-          A batteries-included Next.js starter for a 48h hackathon. Sign in,
-          ship features, deploy to Vercel.
+          All systems go — auth, database, and UI are wired up. Sign in, ship
+          features, deploy to Vercel.
         </p>
         <div className="flex gap-3 pt-2">
           {session?.user ? (

@@ -16,7 +16,7 @@ export default async function DashboardPage() {
     <div className="mx-auto max-w-5xl px-6 py-16">
       <h1 className="text-3xl font-bold tracking-tight">Dashboard</h1>
       <p className="mt-2 text-muted-foreground">
-        Protected route — you must be signed in to see this.
+        You&apos;re in — deploy test passed. This page is protected by Auth.js.
       </p>
 
       <Card className="mt-8 max-w-md">
