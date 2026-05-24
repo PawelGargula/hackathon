@@ -132,7 +132,7 @@ npm run db:seed      # seed data
 npm run db:studio    # Prisma Studio
 ```
 
-`postinstall` i `build` uruchamiają `prisma generate` automatycznie.
+`postinstall` uruchamia `prisma generate`. Skrypt `build` uruchamia `prisma migrate deploy`, potem `prisma generate`, potem `next build` — migracje stosują się automatycznie przy deployu na Vercel (wymaga `DIRECT_URL` w env).
 
 ## Auth.js — konfiguracja (zaimplementowana)
 

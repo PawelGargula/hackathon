@@ -166,17 +166,17 @@ Wpisz datę i wynik po teście:
 
 ## Szybkie naprawy (gdy coś padnie)
 
-| Objaw                      | Prawdopodobna przyczyna    | Fix                                                               |
-| -------------------------- | -------------------------- | ----------------------------------------------------------------- |
-| `git push` — auth failed   | Brak tokenu / SSH na lapku | `gh auth login` lub skonfiguruj PAT / SSH key                     |
-| `npm install` — EBADENGINE | Inna wersja Node niż na PC | Zainstaluj ten sam LTS (20 lub 22)                                |
-| OAuth localhost fail       | Zły redirect URI           | Google Console → dodaj localhost callback                         |
-| OAuth prod fail            | Brak Vercel URL w redirect | Dodaj `https://*.vercel.app/.../callback/google`                  |
-| Prisma connection error    | Zły URL — pooled vs direct | `DATABASE_URL` (:6543) dla app; `DIRECT_URL` (:5432) dla migracji |
-| Migracja fail              | Brak `DIRECT_URL`          | Ustaw direct URL z Supabase; nie używaj poolera do `db:migrate`   |
-| Vercel build fail          | Brak env vars              | Vercel → Settings → Environment Variables (oba URL-e + AUTH\_\*)  |
-| Strona 500 po deploy       | Migracje nie zastosowane   | `npm run db:deploy` z prod `DIRECT_URL`                           |
-| Wolny `npm install`        | Antywirus / słabe Wi-Fi    | Użyj kabla / wyłącz skanowanie folderu projektu tymczasowo        |
+| Objaw                      | Prawdopodobna przyczyna    | Fix                                                                                                    |
+| -------------------------- | -------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `git push` — auth failed   | Brak tokenu / SSH na lapku | `gh auth login` lub skonfiguruj PAT / SSH key                                                          |
+| `npm install` — EBADENGINE | Inna wersja Node niż na PC | Zainstaluj ten sam LTS (20 lub 22)                                                                     |
+| OAuth localhost fail       | Zły redirect URI           | Google Console → dodaj localhost callback                                                              |
+| OAuth prod fail            | Brak Vercel URL w redirect | Dodaj `https://*.vercel.app/.../callback/google`                                                       |
+| Prisma connection error    | Zły URL — pooled vs direct | `DATABASE_URL` (:6543) dla app; `DIRECT_URL` (:5432) dla migracji                                      |
+| Migracja fail              | Brak `DIRECT_URL`          | Ustaw direct URL z Supabase; nie używaj poolera do `db:migrate`                                        |
+| Vercel build fail          | Brak env vars              | Vercel → Settings → Environment Variables (oba URL-e + AUTH\_\*)                                       |
+| Strona 500 po deploy       | Migracje nie zastosowane   | Sprawdź logi buildu Vercel; upewnij się, że `DIRECT_URL` jest ustawione; awaryjnie `npm run db:deploy` |
+| Wolny `npm install`        | Antywirus / słabe Wi-Fi    | Użyj kabla / wyłącz skanowanie folderu projektu tymczasowo                                             |
 
 ---
 

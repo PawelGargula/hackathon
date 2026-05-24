@@ -88,9 +88,9 @@ Open <http://localhost:3000>.
 2. **Import** the repo into Vercel.
 3. Add the same env vars (`AUTH_SECRET`, `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET`, `DATABASE_URL`, `DIRECT_URL`) under Project Settings → Environment Variables.
 4. Add the production redirect URI to your Google OAuth client (see step 2 above).
-5. Run migrations against the production DB once: `npx prisma migrate deploy` locally with prod `DIRECT_URL`, or wire it into the build.
+5. Ensure `DIRECT_URL` is set on Vercel — `npm run build` runs `prisma migrate deploy` before `next build`, so pending migrations apply automatically on every deploy.
 
-`npm run build` already runs `prisma generate` first.
+For local schema changes, use `npm run db:migrate` (creates migration files). Production deploys pick them up via the build script.
 
 ## Notable design choices
 

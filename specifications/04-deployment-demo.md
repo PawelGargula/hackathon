@@ -46,7 +46,7 @@ Ustaw w Vercel → Project → Settings → Environment Variables:
 | Zmienna              | Opis                                                                                          |
 | -------------------- | --------------------------------------------------------------------------------------------- |
 | `DATABASE_URL`       | Supabase **pooled** (port 6543, `?pgbouncer=true`) — app runtime                              |
-| `DIRECT_URL`         | Supabase **direct** (port 5432) — migracje Prisma, `db:deploy`                                |
+| `DIRECT_URL`         | Supabase **direct** (port 5432) — **wymagane na Vercel** (build uruchamia `migrate deploy`)   |
 | `AUTH_SECRET`        | Losowy secret — `node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"` |
 | `AUTH_GOOGLE_ID`     | Client ID z Google Cloud Console                                                              |
 | `AUTH_GOOGLE_SECRET` | Client Secret z Google Cloud Console                                                          |
@@ -76,29 +76,29 @@ https://*-TWOJ-PROJEKT.vercel.app/api/auth/callback/google
 
 ### 4. Migracje Prisma (Prisma 7)
 
-**Przed pierwszym deployem z bazą:**
+**Lokalnie (dev — tworzenie migracji):**
 
 ```bash
-npm run db:migrate   # lokalnie, z uzupełnionym DIRECT_URL w .env.local
+npm run db:migrate   # po zmianie schema.prisma; wymaga DIRECT_URL w .env.local
 ```
 
-**Na produkcji (hackathon):**
+**Na Vercel (prod — automatycznie przy buildzie):**
+
+Skrypt `build` w [`package.json`](../package.json) uruchamia:
 
 ```bash
-npm run db:deploy    # z DIRECT_URL produkcyjnym w .env.local
+prisma migrate deploy && prisma generate && next build
 ```
 
-W Prisma 7 URL bazy jest w [`prisma.config.ts`](../prisma.config.ts) — migracje używają `DIRECT_URL`, nie pooled `DATABASE_URL`.
+Każdy push z nowymi plikami w `prisma/migrations/` stosuje je na bazie prod podczas deployu. W Prisma 7 URL migracji jest w [`prisma.config.ts`](../prisma.config.ts) — używa `DIRECT_URL`, nie pooled `DATABASE_URL`.
 
-Build na Vercel uruchamia `prisma generate` automatycznie (`postinstall` + skrypt `build`).
+**Wymagane na Vercel:** ustaw `DIRECT_URL` (direct, port 5432) obok `DATABASE_URL` — bez tego build failuje na kroku migracji.
 
-Opcje na hackathonie:
+**Workflow w hackathonie:**
 
-- Uruchomić `npm run db:deploy` lokalnie z prod `DIRECT_URL` (najszybsze)
-- Dodać `prisma migrate deploy` do build script (ostrożnie — wydłuża build)
-- Użyć Supabase SQL Editor do ręcznego zastosowania migracji (awaryjnie)
-
-**Rekomendacja:** migracje zrób przed hackathonem; w trakcie tylko `npm run db:push` w razie drobnych zmian schematu.
+1. Zmiana schematu → `npm run db:migrate` lokalnie (Supabase dev lub lokalny Postgres w `.env.local`)
+2. Commit plików migracji → push → Vercel build stosuje je na prod automatycznie
+3. Awaryjnie: `npm run db:deploy` ręcznie z prod `DIRECT_URL`, albo Supabase SQL Editor
 
 ### 5. Weryfikacja deployu
 
@@ -142,10 +142,10 @@ Przygotuj nagranie ekranu w niedzielę przed południem — koszt 10 minut, duż
 
 1. **Zły redirect URI** — najczęstszy błąd OAuth; URL musi być identyczny (https, bez trailing slash)
 2. **Brak `AUTH_SECRET` na Vercel** — sesja nie działa
-3. **Brak `DIRECT_URL` na Vercel** — migracje / `db:deploy` failują (pooler nie obsługuje DDL)
+3. **Brak `DIRECT_URL` na Vercel** — build failuje na `migrate deploy` (pooler nie obsługuje DDL)
 4. **Connection string Supabase** — `DATABASE_URL` = pooled (:6543); `DIRECT_URL` = direct (:5432)
 5. **Env vars tylko w Production** — preview deployy nie mają bazy
-6. **Migracja nie uruchomiona** — aplikacja startuje, ale zapytania do DB failują
+6. **Build przeszedł, ale migracja failowała wcześniej** — sprawdź logi Vercel; awaryjnie `npm run db:deploy` z prod `DIRECT_URL`
 7. **Prisma client nie wygenerowany** — na Vercel pokryte przez `postinstall`; lokalnie: `npm install`
 
 ## Checklista deployu — sobota ~17:00
@@ -170,5 +170,5 @@ Przygotuj nagranie ekranu w niedzielę przed południem — koszt 10 minut, duż
 - [ ] Konkretny URL produkcyjny projektu
 - [x] Pełna lista env vars — [../.env.example](../.env.example) (wartości w `.env.local`, nie w repo)
 - [ ] Procedura rollback (Vercel → Deployments → Promote previous)
-- [x] Decyzja: `migrate deploy` w build vs ręcznie — **ręcznie (`npm run db:deploy`) przed/po deploy**
+- [x] Decyzja: `migrate deploy` w build vs ręcznie — **w build script (`npm run build`)**
 - [ ] Screenshot działającego flow OAuth do slajdów backupowych
