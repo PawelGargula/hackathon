@@ -13,15 +13,16 @@ Cel: zebrać w jednym miejscu wiedzę o wydarzeniu, setupie laptopa, stacku tech
 
 ## Mapa dokumentów
 
-| Dokument                                               | Opis                                          | Status                   |
-| ------------------------------------------------------ | --------------------------------------------- | ------------------------ |
-| [01-hackathon-context.md](./01-hackathon-context.md)   | Wydarzenie, agenda, wyzwania, mentoring       | Szkic                    |
-| [02-project-idea.md](./02-project-idea.md)             | Pomysł projektu, MVP, wybór ścieżki           | Szkic                    |
-| [03-laptop-setup.md](./03-laptop-setup.md)             | Setup Windows, narzędzia, konta, checklisty   | Szkic                    |
-| [04-deployment-demo.md](./04-deployment-demo.md)       | Vercel, Supabase, OAuth, QR, fallback         | Szkic                    |
-| [05-tech-stack.md](./05-tech-stack.md)                 | Next.js, Auth.js, Prisma, Tailwind, shadcn/ui | Gotowy (template w repo) |
-| [06-hackathon-playbook.md](./06-hackathon-playbook.md) | Timeline 48h, role, prezentacja, ryzyka       | Szkic                    |
-| [07-laptop-smoke-test.md](./07-laptop-smoke-test.md)   | Dress rehearsal laptopa (~30 min)             | Szkic                    |
+| Dokument                                                   | Opis                                          | Status                   |
+| ---------------------------------------------------------- | --------------------------------------------- | ------------------------ |
+| [01-hackathon-context.md](./01-hackathon-context.md)       | Wydarzenie, agenda, wyzwania, mentoring       | Szkic                    |
+| [02-project-idea.md](./02-project-idea.md)                 | Pomysł projektu, MVP, wybór ścieżki           | Szkic                    |
+| [03-laptop-setup.md](./03-laptop-setup.md)                 | Setup Windows, narzędzia, konta, checklisty   | Szkic                    |
+| [04-deployment-demo.md](./04-deployment-demo.md)           | Vercel, Supabase, OAuth, QR, fallback         | Szkic                    |
+| [05-tech-stack.md](./05-tech-stack.md)                     | Next.js, Auth.js, Prisma, Tailwind, shadcn/ui | Gotowy (template w repo) |
+| [06-hackathon-playbook.md](./06-hackathon-playbook.md)     | Timeline 48h, role, prezentacja, ryzyka       | Szkic                    |
+| [07-laptop-smoke-test.md](./07-laptop-smoke-test.md)       | Dress rehearsal laptopa (~30 min)             | Szkic                    |
+| [08-jedzmy-sadeckie-spec.md](./08-jedzmy-sadeckie-spec.md) | Finalna specyfikacja projektu JedźMY Sądeckie | Szkic                    |
 
 ## Źródła surowe
 

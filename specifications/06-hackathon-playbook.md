@@ -122,6 +122,18 @@ Przygotujcie odpowiedzi na typowe pytania:
 5. (Opcjonalnie) pokaż widok mobile
 ```
 
+### Demo dwie perspektywy
+
+Dla projektu **Razem w Drogę** najlepszy wariant live demo to dwie sesje obok siebie:
+
+- lewa strona: kierowca zalogowany w jednej przegladarce,
+- prawa strona: pasazer zalogowany w drugiej przegladarce albo w oknie incognito,
+- oba konta sa przygotowane przed prezentacja, z otwartymi ekranami aplikacji.
+
+Pokazujemy wtedy przeplyw bez przelogowywania: kierowca dodaje lub ma przygotowany przejazd, pasazer wyszukuje i wysyla prosbe, kierowca widzi ja u siebie, odpowiada albo akceptuje, a pasazer widzi zmiane statusu. To mocniej pokazuje realna aplikacje niz przechodzenie przez jeden widok administracyjny.
+
+Przed finalem trzeba przećwiczyć ten wariant na tym samym ekranie/projektorze, bo dwa okna moga byc mniej czytelne na sali. Jesli tekst jest za maly, pokazujemy tylko jedna perspektywe naraz, ale bez przelogowywania: kierowca i pasazer sa dalej otwarci w osobnych oknach.
+
 Przećwiczcie **minimum 5 razy z timerem 3:00**. Ustalcie kto klika, kto mówi.
 
 ---
