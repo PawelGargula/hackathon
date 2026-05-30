@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { LinkLoadingIndicator } from "@/components/link-loading-indicator";
 import { PromoIllustration } from "@/components/illustrations/promo-illustration";
 
 type NavItem = {
@@ -89,7 +90,16 @@ export function AppShell({
                     : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground",
                 )}
               >
-                <item.icon className={cn("size-[18px]", active && "text-emerald-600 dark:text-emerald-400")} />
+                <span className="grid size-[18px] shrink-0 place-items-center">
+                  <LinkLoadingIndicator className="size-[18px]">
+                    <item.icon
+                      className={cn(
+                        "size-[18px]",
+                        active && "text-emerald-600 dark:text-emerald-400",
+                      )}
+                    />
+                  </LinkLoadingIndicator>
+                </span>
                 <span className="flex-1">{item.label}</span>
                 {item.badge ? (
                   <span
@@ -159,7 +169,11 @@ export function AppShell({
                   active ? "text-primary" : "text-muted-foreground",
                 )}
               >
-                <item.icon className="size-5" />
+                <span className="grid size-5 place-items-center">
+                  <LinkLoadingIndicator className="size-5">
+                    <item.icon className="size-5" />
+                  </LinkLoadingIndicator>
+                </span>
                 <span className="truncate px-0.5">
                   {item.label.split(" ")[0]}
                 </span>

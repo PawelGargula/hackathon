@@ -15,7 +15,8 @@ import { prisma } from "@/lib/prisma";
 import { getRideById } from "@/lib/rides";
 import { joinBus } from "@/app/actions";
 import { Badge } from "@/components/ui/badge";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { SubmitButton } from "@/components/submit-button";
 import { RideTypeBadge } from "@/components/ride-type-badge";
 import { RequestSeatForm } from "@/components/request-seat-form";
 import { RouteMap, type MapPoint } from "@/components/route-map";
@@ -229,9 +230,9 @@ export default async function RideDetailsPage({
             ) : ride.kind === "BUS" ? (
               <form action={joinBus}>
                 <input type="hidden" name="rideId" value={ride.id} />
-                <Button size="lg" type="submit" className="w-full">
+                <SubmitButton size="lg" className="w-full" pendingText="Dołączanie…">
                   Dołącz do kursu
-                </Button>
+                </SubmitButton>
                 <p className="mt-2 text-xs text-muted-foreground">
                   Dołączenie jest od razu potwierdzone i liczy się do Twoich
                   statystyk{ride.departureAt ? ` (odjazd ${formatTime(ride.departureAt)})` : ""}.

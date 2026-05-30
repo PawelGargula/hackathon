@@ -1,11 +1,13 @@
 "use client";
 
+import { useState } from "react";
 import { Search, User } from "lucide-react";
 import {
   LocationAutocomplete,
   type GeoPoint,
 } from "@/components/location-autocomplete";
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -20,10 +22,12 @@ type Props = {
 };
 
 export function SearchForm({ defaults }: Props) {
+  const [submitting, setSubmitting] = useState(false);
   return (
     <form
       method="get"
       action="/szukaj"
+      onSubmit={() => setSubmitting(true)}
       className="flex min-w-0 flex-col gap-3 rounded-2xl bg-card p-3 shadow-md ring-1 ring-border/50 xl:flex-row xl:items-center xl:rounded-full xl:p-2 xl:pl-6"
     >
       <div className="relative z-30 min-w-0 flex-1">
@@ -80,8 +84,15 @@ export function SearchForm({ defaults }: Props) {
           </div>
         </div>
       </div>
-      <Button type="submit" size="lg" className="w-full xl:w-auto xl:rounded-full">
-        <Search className="size-4" /> Szukaj
+      <Button
+        type="submit"
+        size="lg"
+        disabled={submitting}
+        aria-busy={submitting}
+        className="w-full xl:w-auto xl:rounded-full"
+      >
+        {submitting ? <Spinner className="size-4" /> : <Search className="size-4" />}
+        Szukaj
       </Button>
     </form>
   );

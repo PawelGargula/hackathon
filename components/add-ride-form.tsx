@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Spinner } from "@/components/ui/spinner";
 import { createRide } from "@/app/actions";
 
 type Waypoint = { key: number; point: GeoPoint | null };
@@ -177,7 +178,14 @@ export function AddRideForm() {
         />
       </div>
 
-      <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isPending}>
+      <Button
+        type="submit"
+        size="lg"
+        className="w-full sm:w-auto"
+        disabled={isPending}
+        aria-busy={isPending}
+      >
+        {isPending && <Spinner className="size-4" />}
         {isPending ? "Publikowanie…" : "Opublikuj przejazd"}
       </Button>
     </form>

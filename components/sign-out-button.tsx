@@ -1,6 +1,6 @@
 import { LogOut } from "lucide-react";
 import { signOut } from "@/lib/auth";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/submit-button";
 
 export function SignOutButton() {
   return (
@@ -10,9 +10,14 @@ export function SignOutButton() {
         await signOut({ redirectTo: "/" });
       }}
     >
-      <Button type="submit" variant="outline" size="sm">
-        <LogOut /> Wyloguj
-      </Button>
+      <SubmitButton
+        variant="outline"
+        size="sm"
+        icon={<LogOut />}
+        pendingText="Wylogowuję…"
+      >
+        Wyloguj
+      </SubmitButton>
     </form>
   );
 }

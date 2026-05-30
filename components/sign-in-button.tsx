@@ -1,5 +1,5 @@
 import { signIn } from "@/lib/auth";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/submit-button";
 
 export function SignInButton({
   provider = "google",
@@ -19,9 +19,9 @@ export function SignInButton({
         await signIn(provider, { redirectTo });
       }}
     >
-      <Button type="submit" className={className}>
+      <SubmitButton className={className} pendingText="Logowanie…">
         {children ?? "Zaloguj się przez Google"}
-      </Button>
+      </SubmitButton>
     </form>
   );
 }

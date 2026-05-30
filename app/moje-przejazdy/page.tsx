@@ -4,7 +4,8 @@ import { ArrowRight, Bus, Car, Leaf, Check, MapPin, X } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { decideRequest } from "@/app/actions";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { SubmitButton } from "@/components/submit-button";
 import { Badge } from "@/components/ui/badge";
 import { RideTypeBadge } from "@/components/ride-type-badge";
 import { RequestStatusBadge } from "@/components/request-status-badge";
@@ -238,16 +239,26 @@ async function DriverView({ userId }: { userId: string }) {
                       <form action={decideRequest}>
                         <input type="hidden" name="requestId" value={req.id} />
                         <input type="hidden" name="decision" value="accept" />
-                        <Button type="submit" size="sm" disabled={free < req.seatsRequested}>
-                          <Check className="mr-1 size-4" /> Zaakceptuj
-                        </Button>
+                        <SubmitButton
+                          size="sm"
+                          disabled={free < req.seatsRequested}
+                          icon={<Check className="size-4" />}
+                          pendingText="Akceptuję…"
+                        >
+                          Zaakceptuj
+                        </SubmitButton>
                       </form>
                       <form action={decideRequest}>
                         <input type="hidden" name="requestId" value={req.id} />
                         <input type="hidden" name="decision" value="reject" />
-                        <Button type="submit" size="sm" variant="destructive">
-                          <X className="mr-1 size-4" /> Odrzuć
-                        </Button>
+                        <SubmitButton
+                          size="sm"
+                          variant="destructive"
+                          icon={<X className="size-4" />}
+                          pendingText="Odrzucam…"
+                        >
+                          Odrzuć
+                        </SubmitButton>
                       </form>
                     </div>
                   )}

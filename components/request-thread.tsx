@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import { Send } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import { SubmitButton } from "@/components/submit-button";
 import { Input } from "@/components/ui/input";
 import { sendMessage } from "@/app/actions";
 import { formatTime } from "@/lib/format";
@@ -79,9 +79,7 @@ export function RequestThread({
             required
             className="min-w-0"
           />
-          <Button type="submit" size="icon" aria-label="Wyślij">
-            <Send />
-          </Button>
+          <SubmitButton size="icon" aria-label="Wyślij" icon={<Send />} />
         </form>
       )}
     </div>

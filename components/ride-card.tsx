@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, BadgeCheck, Clock, Star, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
+import { LinkLoadingIndicator } from "@/components/link-loading-indicator";
 import { RideTypeBadge } from "@/components/ride-type-badge";
 import { formatDateTime, formatPrice } from "@/lib/format";
 import { cn } from "@/lib/utils";
@@ -101,6 +102,7 @@ export function RideCard({
           className={cn(buttonVariants({ size: "sm" }), "shrink-0")}
         >
           {ride.kind === "BUS" ? "Zobacz kurs" : "Zobacz"}
+          <LinkLoadingIndicator className="size-3.5" />
         </Link>
       </div>
     </div>
