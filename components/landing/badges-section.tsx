@@ -52,8 +52,8 @@ export function BadgesSection() {
                 <Image 
                   src={badge.image} 
                   alt={badge.title} 
-                  width={96} 
-                  height={96}
+                  fill
+                  sizes="96px"
                   className="object-contain"
                 />
               </div>

@@ -50,8 +50,8 @@ export function BadgeGrid({
                 <Image
                   src={imageSrc}
                   alt={a.label}
-                  width={64}
-                  height={64}
+                  fill
+                  sizes="64px"
                   className={cn(
                     "object-contain transition-all duration-300",
                     !a.unlocked && "grayscale contrast-50 opacity-40",
