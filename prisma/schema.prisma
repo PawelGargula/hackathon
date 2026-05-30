@@ -52,7 +52,130 @@ model User {
   accounts      Account[]
   sessions      Session[]
 
+  ridesAsDriver Ride[]               @relation("DriverRides")
+  requests      RideRequest[]
+  messages      RideRequestMessage[]
+
   @@map("users")
+}
+
+enum RideKind {
+  CAR
+  BUS
+}
+
+enum RequestStatus {
+  PENDING
+  ACCEPTED
+  REJECTED
+}
+
+// Ride: a shared car ride (CAR, owned by a driver) or a curated MPK bus
+// service (BUS, no owner). Origin/destination locations are denormalized
+// snapshots from geocoding rather than a separate Location table.
+model Ride {
+  id   String   @id @default(cuid())
+  kind RideKind @default(CAR)
+
+  driverId String? @map("driver_id")
+  driver   User?   @relation("DriverRides", fields: [driverId], references: [id], onDelete: Cascade)
+
+  originLabel    String  @map("origin_label")
+  originLocality String? @map("origin_locality")
+  originLat      Float   @map("origin_lat")
+  originLng      Float   @map("origin_lng")
+  originPlaceId  String? @map("origin_place_id")
+
+  destinationLabel    String  @map("destination_label")
+  destinationLocality String? @map("destination_locality")
+  destinationLat      Float   @map("destination_lat")
+  destinationLng      Float   @map("destination_lng")
+  destinationPlaceId  String? @map("destination_place_id")
+
+  departureAt DateTime @map("departure_at")
+  seats       Int      @default(1)
+  price       Float?
+  description String?
+
+  // BUS-only transit fields.
+  operator    String?
+  lineNumber  String? @map("line_number")
+  ticketPrice Float?  @map("ticket_price")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  waypoints RideWaypoint[]
+  requests  RideRequest[]
+
+  @@index([kind, departureAt])
+  @@map("rides")
+}
+
+model RideWaypoint {
+  id     String @id @default(cuid())
+  rideId String @map("ride_id")
+  ride   Ride   @relation(fields: [rideId], references: [id], onDelete: Cascade)
+  order  Int    @default(0)
+
+  locLabel    String  @map("loc_label")
+  locLocality String? @map("loc_locality")
+  locLat      Float   @map("loc_lat")
+  locLng      Float   @map("loc_lng")
+
+  @@index([rideId, order])
+  @@map("ride_waypoints")
+}
+
+// RideRequest: a passenger joining a ride. For CAR it starts PENDING and the
+// driver decides; for BUS it is created ACCEPTED (auto-accept). An ACCEPTED
+// request is the unit counted in CO2/area statistics, so it stores the
+// computed distance, savings and start/end zones.
+model RideRequest {
+  id          String        @id @default(cuid())
+  rideId      String        @map("ride_id")
+  ride        Ride          @relation(fields: [rideId], references: [id], onDelete: Cascade)
+  passengerId String        @map("passenger_id")
+  passenger   User          @relation(fields: [passengerId], references: [id], onDelete: Cascade)
+  status      RequestStatus @default(PENDING)
+
+  pickupLabel String  @map("pickup_label")
+  pickupLat   Float   @map("pickup_lat")
+  pickupLng   Float   @map("pickup_lng")
+
+  dropoffLabel String @map("dropoff_label")
+  dropoffLat   Float  @map("dropoff_lat")
+  dropoffLng   Float  @map("dropoff_lng")
+
+  seatsRequested Int @default(1) @map("seats_requested")
+
+  // Filled when the request becomes ACCEPTED (used for statistics).
+  distanceKm      Float?  @map("distance_km")
+  co2SavedKg      Float?  @map("co2_saved_kg")
+  originZone      String? @map("origin_zone")
+  destinationZone String? @map("destination_zone")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  messages RideRequestMessage[]
+
+  @@index([rideId])
+  @@index([passengerId])
+  @@map("ride_requests")
+}
+
+model RideRequestMessage {
+  id        String      @id @default(cuid())
+  requestId String      @map("request_id")
+  request   RideRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  senderId  String      @map("sender_id")
+  sender    User        @relation(fields: [senderId], references: [id], onDelete: Cascade)
+  body      String
+  createdAt DateTime    @default(now()) @map("created_at")
+
+  @@index([requestId, createdAt])
+  @@map("ride_request_messages")
 }
 
 model VerificationToken {

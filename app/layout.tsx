@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Hackathon Template",
-  description: "Next.js 16 + Auth.js v5 + Prisma 7 + Tailwind v4 + shadcn/ui",
+  title: "Razem w Droge",
+  description:
+    "Lokalne przejazdy wspoldzielone i kursy MPK Nowy Sacz w jednej wyszukiwarce - przeciw wykluczeniu transportowemu w subregionie nowosadeckim.",
 };
 
 export default function RootLayout({
