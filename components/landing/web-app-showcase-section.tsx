@@ -22,15 +22,15 @@ export function WebAppShowcaseSection() {
           <ul className="space-y-3 text-zinc-600">
             <li className="flex items-center gap-2">
               <CheckCircle className="size-5 text-emerald-600 shrink-0" />
-              <span>Brak konieczności pobierania i instalacji</span>
+              <span>Działa od razu, bez instalacji</span>
             </li>
             <li className="flex items-center gap-2">
               <CheckCircle className="size-5 text-emerald-600 shrink-0" />
-              <span>Pełna responsywność i wygoda na smartfonie</span>
+              <span>Wygodna obsługa na każdym ekranie</span>
             </li>
             <li className="flex items-center gap-2">
               <CheckCircle className="size-5 text-emerald-600 shrink-0" />
-              <span>Szybkie rezerwacje i dodawanie przejazdów w kilka chwil</span>
+              <span>Błyskawiczne dodawanie i rezerwacja przejazdów</span>
             </li>
           </ul>
           

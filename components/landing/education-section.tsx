@@ -2,9 +2,9 @@ import { Lightbulb } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const facts = [
-  "Jedno auto z 3 osobami może zastąpić nawet 3 osobne samochody na tej samej trasie.",
-  "Wspólny przejazd na trasie 30 km może oszczędzić około 3.6 kg CO₂ na osobę.",
-  "Mniej samochodów na lokalnych drogach to mniej korków, hałasu i spalin.",
+  "Trzy osoby w jednym aucie to o dwa samochody mniej w porannym korku i więcej wolnych miejsc parkingowych.",
+  "Zastępując samotne dojazdy wspólnymi, możesz zaoszczędzić nawet kilkaset kilogramów CO₂ rocznie.",
+  "Każdy wspólny przejazd to realna ulga dla Twojej okolicy: czystsze powietrze, mniejszy hałas i płynniejszy ruch.",
 ];
 
 export function EducationSection() {

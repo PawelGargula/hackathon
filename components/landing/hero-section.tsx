@@ -20,7 +20,7 @@ export function HeroSection() {
             Jedź taniej, wygodniej i bardziej eko — <span className="text-emerald-600 dark:text-emerald-500">razem w drogę.</span>
           </h1>
           <p className="max-w-2xl text-lg text-muted-foreground">
-            Znajdź wspólny przejazd w swojej okolicy, oszczędzaj pieniądze i zobacz, jak Twoje codzienne podróże pomagają zmniejszać liczbę aut na drogach.
+            Oszczędzaj na codziennych dojazdach i zobacz, jak Twoje wspólne podróże zmniejszają korki i chronią środowisko.
           </p>
 
           <div className="flex flex-wrap items-center gap-4 pt-2">

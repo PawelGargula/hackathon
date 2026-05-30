@@ -20,7 +20,7 @@ const benefits = [
   {
     icon: Leaf,
     title: "Ograniczaj emisję CO₂",
-    description: "Jedno auto z kilkoma osobami lub wybór autobusu to mniej samotnych przejazdów i mniejszy ruch na drogach.",
+    description: "Wybierając wspólny przejazd lub komunikację miejską, realnie zmniejszasz korki i dbasz o czystsze powietrze w regionie.",
   },
 ];
 

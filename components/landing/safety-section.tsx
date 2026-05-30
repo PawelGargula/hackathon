@@ -1,10 +1,10 @@
 import { ShieldCheck, Check } from "lucide-react";
 
 const points = [
-  "sprawdzaj ocenę kierowcy,",
-  "wybieraj przejazdy z dokładną trasą,",
-  "korzystaj z lokalnych profili,",
-  "oceniaj przejazdy po zakończeniu podróży.",
+  "weryfikuj oceny i opinie o kierowcach,",
+  "śledź dokładny przebieg trasy,",
+  "podróżuj ze zweryfikowanymi osobami z okolicy,",
+  "buduj zaufanie, oceniając wspólne przejazdy.",
 ];
 
 export function SafetySection() {
