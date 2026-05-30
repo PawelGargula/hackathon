@@ -156,11 +156,6 @@ export function LocationAutocomplete({
           />
         </>
       )}
-      {required && !selected && text.length > 0 && (
-        <p className={cn("text-xs text-muted-foreground")}>
-          Wybierz punkt z listy podpowiedzi.
-        </p>
-      )}
     </div>
   );
 }

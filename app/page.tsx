@@ -58,7 +58,7 @@ async function Dashboard({
   return (
     <div className="mx-auto max-w-6xl space-y-8">
       {/* Hero + quick search */}
-      <section className="relative overflow-hidden rounded-[2rem] bg-emerald-50 px-6 py-8 dark:bg-emerald-950/30 sm:px-10 sm:py-12">
+      <section className="relative rounded-[2rem] bg-emerald-50 px-6 py-8 dark:bg-emerald-950/30 sm:px-10 sm:py-12">
         <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
           <div className="max-w-xl">
             <h1 className="font-heading text-3xl font-bold text-emerald-950 dark:text-emerald-50 sm:text-4xl">
@@ -295,50 +295,81 @@ function EmptyState({
 const features = [
   {
     icon: Search,
-    title: "Wyszukiwanie po trasie",
+    title: "1. Wpisz trasę",
     detail:
-      "Wpisz skąd, dokąd i kiedy chcesz jechać. Pokazujemy najtrafniejsze opcje, a nie przypadkową tablicę ogłoszeń.",
+      "Szukaj połączeń z Twojej okolicy. Podaj skąd, dokąd i kiedy chcesz jechać.",
   },
   {
-    icon: Bus,
-    title: "Auto i autobus razem",
+    icon: Route,
+    title: "2. Wybierz opcję",
     detail:
-      "Wolne miejsca w autach sąsiadów oraz pasujące kursy MPK Nowy Sącz w jednej wspólnej liście.",
+      "Łączymy przejazdy sąsiedzkie i rozkłady MPK Nowy Sącz na jednej liście wyników.",
   },
   {
     icon: Leaf,
-    title: "Realny efekt CO2",
+    title: "3. Jedź i chroń planetę",
     detail:
-      "Każdy wspólny przejazd liczymy do statystyk zaoszczędzonego CO2 i analityki potrzeb przejazdowych.",
+      "Zbieraj punkty i sadź wirtualne drzewa za zaoszczędzone emisje CO2.",
   },
 ];
 
 function Landing() {
   return (
     <div className="mx-auto max-w-6xl px-6 py-16">
-      <section className="space-y-5">
-        <span className="inline-flex items-center gap-2 rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
-          <MapPin className="size-3.5" /> Subregion nowosądecki - pilotaż z MPK
-          Nowy Sącz
-        </span>
-        <h1 className="max-w-3xl font-heading text-4xl font-bold tracking-tight sm:text-5xl">
-          Razem w Drogę
-        </h1>
-        <p className="max-w-2xl text-lg text-muted-foreground">
-          Lokalna aplikacja do codziennych dojazdów. Pokazujemy wolne miejsce w
-          aucie sąsiada na trasie, którą ktoś i tak pokonuje, oraz pasujące kursy
-          komunikacji miejskiej - w jednym miejscu. To nie kolejny BlaBlaCar:
-          uzupełniamy transport publiczny i działamy przeciw wykluczeniu
-          transportowemu.
-        </p>
-        <div className="flex flex-wrap gap-3 pt-2">
-          <SignInButton redirectTo="/">
-            Zaloguj się przez Google
-          </SignInButton>
+      <section className="flex flex-col gap-12 lg:flex-row lg:items-center">
+        <div className="flex-1 space-y-6">
+          <span className="inline-flex items-center gap-2 rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
+            <MapPin className="size-3.5" /> Subregion nowosądecki - pilotaż z MPK
+            Nowy Sącz
+          </span>
+          <h1 className="max-w-3xl font-heading text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
+            Koniec z wykluczeniem komunikacyjnym.<br />
+            <span className="mt-2 block text-2xl sm:text-3xl lg:text-4xl text-emerald-600 dark:text-emerald-500">Twój transport po Sądecczyźnie w jednej aplikacji.</span>
+          </h1>
+          <p className="max-w-2xl text-lg text-muted-foreground">
+            Lokalna aplikacja do codziennych dojazdów. Pokazujemy <strong>wolne miejsce w
+            aucie</strong> sąsiada na trasie, którą ktoś i tak pokonuje, oraz pasujące kursy
+            <strong> MPK Nowy Sącz</strong> - w jednym miejscu. To nie kolejny BlaBlaCar:
+            uzupełniamy transport publiczny i działamy <strong>przeciw wykluczeniu</strong> transportowemu.
+          </p>
+
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <SignInButton redirectTo="/">
+              Zaloguj się przez Google
+            </SignInButton>
+            <span className="text-sm text-muted-foreground ml-2">aby dodawać przejazdy</span>
+          </div>
+        </div>
+
+        <div className="relative hidden flex-1 justify-center lg:flex">
+          <div className="absolute inset-0 rounded-full bg-emerald-500/10 blur-[80px]" />
+          <div className="relative z-10 flex h-[600px] w-[300px] flex-col overflow-hidden rounded-[3rem] border-[8px] border-zinc-900 bg-background shadow-2xl">
+            <div className="absolute inset-x-0 top-0 flex justify-center">
+              <div className="h-6 w-32 rounded-b-2xl bg-zinc-900" />
+            </div>
+            
+            <div className="flex flex-1 flex-col gap-4 bg-emerald-50 p-4 pt-10 dark:bg-emerald-950/30">
+              <HeroIllustration className="h-40 w-full" />
+              <div className="space-y-2 rounded-xl border bg-card p-3 shadow-sm">
+                <div className="h-4 w-24 animate-pulse rounded bg-muted" />
+                <div className="h-10 w-full animate-pulse rounded bg-muted" />
+                <div className="h-10 w-full animate-pulse rounded bg-muted" />
+                <div className="h-10 w-full animate-pulse rounded bg-primary/20" />
+              </div>
+              <div className="flex flex-1 flex-col gap-2 rounded-xl border bg-card p-3 shadow-sm">
+                <div className="h-16 w-full animate-pulse rounded bg-muted" />
+                <div className="h-16 w-full animate-pulse rounded bg-muted" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="mt-16 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="relative z-20 mt-8 sm:mt-12">
+        <SearchForm />
+      </div>
+
+      <section className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {features.map((item) => (
           <Card key={item.title}>
             <CardHeader>
@@ -350,30 +381,6 @@ function Landing() {
           </Card>
         ))}
       </section>
-
-      <section className="mt-12 grid gap-4 sm:grid-cols-3">
-        <LandingStat icon={Users} value="9 gmin" label="obszar działania MPK Nowy Sącz" />
-        <LandingStat icon={Bus} value="auto + MPK" label="multimodalne wyniki wyszukiwania" />
-        <LandingStat icon={Leaf} value="~0,12 kg/km" label="szacowana oszczędność CO2 auta solo" />
-      </section>
-    </div>
-  );
-}
-
-function LandingStat({
-  icon: Icon,
-  value,
-  label,
-}: {
-  icon: LucideIcon;
-  value: string;
-  label: string;
-}) {
-  return (
-    <div className="rounded-xl bg-card p-4 ring-1 ring-border">
-      <Icon className="size-5 text-primary" />
-      <p className="mt-2 text-xl font-semibold">{value}</p>
-      <p className="text-sm text-muted-foreground">{label}</p>
     </div>
   );
 }

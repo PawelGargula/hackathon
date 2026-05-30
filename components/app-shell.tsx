@@ -47,7 +47,7 @@ export function AppShell({
   const nav: NavItem[] = [
     { href: "/", label: "Strona główna", icon: Home, primaryMobile: true },
     { href: "/szukaj", label: "Szukaj przejazdu", icon: Search, primaryMobile: true },
-    { href: "/dodaj", label: "Dodaj przejazd", icon: Plus },
+    { href: "/dodaj", label: "Dodaj przejazd", icon: Plus, primaryMobile: true },
     {
       href: "/moje-przejazdy",
       label: "Moje przejazdy",
@@ -61,8 +61,7 @@ export function AppShell({
       badge: counts.messages,
       primaryMobile: true,
     },
-    { href: "/panel-kierowcy", label: "Panel kierowcy", icon: CarFront },
-    { href: "/konto", label: "Profil", icon: User, primaryMobile: true },
+    { href: "/konto", label: "Profil", icon: User },
   ];
 
   const isActive = (href: string) =>
@@ -129,18 +128,6 @@ export function AppShell({
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/panel-kierowcy"
-              aria-label="Powiadomienia"
-              className="relative grid size-9 place-items-center rounded-full bg-card text-foreground ring-1 ring-border transition-colors hover:bg-accent"
-            >
-              <Bell className="size-[18px]" />
-              {counts.pending > 0 && (
-                <span className="absolute -right-0.5 -top-0.5 grid size-4 place-items-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground">
-                  {counts.pending}
-                </span>
-              )}
-            </Link>
             <Link
               href="/konto"
               className="flex items-center gap-2 rounded-full bg-card py-1 pl-1 pr-3 ring-1 ring-border transition-colors hover:bg-accent"
