@@ -14,6 +14,7 @@ import { prisma } from "@/lib/prisma";
 import { getLifetimeImpact, getUserStats, type StatsPeriod } from "@/lib/rides";
 import { Co2Tree } from "@/components/co2-tree";
 import { BadgeGrid } from "@/components/badge-grid";
+import { SignOutButton } from "@/components/sign-out-button";
 import { formatDate } from "@/lib/format";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -112,6 +113,9 @@ export default async function AccountPage({
               </span>
             )}
           </div>
+        </div>
+        <div className="mt-2 sm:mt-0 sm:ml-auto">
+          <SignOutButton />
         </div>
       </div>
 

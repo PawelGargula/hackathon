@@ -131,7 +131,7 @@ export function AppShell({
               className="flex items-center gap-2 rounded-full bg-card py-1 pl-1 pr-3 ring-1 ring-border transition-colors hover:bg-accent"
             >
               <Avatar user={user} className="size-7" />
-              <span className="hidden text-sm font-medium sm:inline">
+              <span className="text-sm font-medium">
                 {firstName}
               </span>
             </Link>
