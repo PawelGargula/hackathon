@@ -17,7 +17,7 @@ export function SignInButton({
         await signIn(provider, { redirectTo });
       }}
     >
-      <Button type="submit">{children ?? "Sign in with Google"}</Button>
+      <Button type="submit">{children ?? "Zaloguj się przez Google"}</Button>
     </form>
   );
 }

@@ -26,31 +26,31 @@ export function SearchForm({ defaults }: Props) {
       action="/szukaj"
       className="flex flex-col gap-3 rounded-2xl bg-card p-3 shadow-md ring-1 ring-border/50 lg:flex-row lg:items-center lg:rounded-full lg:p-2 lg:pl-6"
     >
-      <div className="flex-1">
+      <div className="relative z-50 flex-1">
         <LocationAutocomplete
           name="origin"
           label="Skąd"
-          placeholder="np. Nowy Sącz"
+          placeholder="Skąd? (np. Nowy Sącz)"
           required
           defaultValue={defaults?.origin}
           labelClassName="lg:sr-only"
           inputClassName="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
         />
       </div>
-      <div className="hidden h-8 w-px bg-border lg:block" />
-      <div className="flex-1">
+      <div className="hidden h-8 w-px bg-border lg:block relative z-40" />
+      <div className="relative z-40 flex-1">
         <LocationAutocomplete
           name="destination"
           label="Dokąd"
-          placeholder="np. Stary Sącz"
+          placeholder="Dokąd? (np. Stary Sącz)"
           required
           defaultValue={defaults?.destination}
           labelClassName="lg:sr-only"
           inputClassName="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
         />
       </div>
-      <div className="hidden h-8 w-px bg-border lg:block" />
-      <div className="flex-1 grid gap-1.5 lg:gap-0">
+      <div className="hidden h-8 w-px bg-border lg:block relative z-30" />
+      <div className="relative z-30 flex-1 grid gap-1.5 lg:gap-0">
         <Label htmlFor="when" className="lg:sr-only">Kiedy</Label>
         <Input
           id="when"
@@ -61,8 +61,8 @@ export function SearchForm({ defaults }: Props) {
           className="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
         />
       </div>
-      <div className="hidden h-8 w-px bg-border lg:block" />
-      <div className="flex gap-3 lg:w-auto">
+      <div className="hidden h-8 w-px bg-border lg:block relative z-20" />
+      <div className="relative z-20 flex gap-3 lg:w-auto">
         <div className="w-20 grid gap-1.5 lg:gap-0">
           <Label htmlFor="seats" className="lg:sr-only">Miejsca</Label>
           <Input
