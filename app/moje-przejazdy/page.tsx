@@ -309,14 +309,14 @@ function RequestCard({
 
       <Link
         href={`/przejazd/${req.ride.id}`}
-        className="flex items-center gap-2 text-[15px] font-semibold hover:underline"
+        className="flex items-center gap-2 text-[15px] font-semibold hover:underline min-w-0"
       >
-        <span className="grid size-8 place-items-center rounded-full bg-primary/10 text-primary">
+        <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
           {req.ride.kind === "BUS" ? <Bus className="size-4" /> : <Car className="size-4" />}
         </span>
-        <span className="truncate">{req.ride.originLabel}</span>
+        <span className="truncate min-w-0">{req.ride.originLabel}</span>
         <ArrowRight className="size-4 shrink-0 text-primary" />
-        <span className="truncate">{req.ride.destinationLabel}</span>
+        <span className="truncate min-w-0">{req.ride.destinationLabel}</span>
       </Link>
 
       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">

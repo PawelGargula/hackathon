@@ -194,8 +194,8 @@ export default async function RideDetailsPage({
             {isDriver ? (
               <p className="text-sm text-muted-foreground">
                 To Twój przejazd. Prośby pasażerów obsługujesz w{" "}
-                <Link href="/panel-kierowcy" className="text-primary underline">
-                  panelu kierowcy
+                <Link href="/moje-przejazdy?tab=kierowca" className="text-primary underline">
+                  zakładce "Jako kierowca"
                 </Link>
                 .
               </p>

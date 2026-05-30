@@ -97,7 +97,7 @@ export async function createRide(formData: FormData) {
     },
   });
 
-  revalidatePath("/panel-kierowcy");
+  revalidatePath("/moje-przejazdy");
   revalidatePath("/szukaj");
   redirect(`/przejazd/${ride.id}`);
 }
@@ -153,7 +153,6 @@ export async function requestSeat(formData: FormData) {
     },
   });
 
-  revalidatePath("/panel-kierowcy");
   revalidatePath("/moje-przejazdy");
   redirect("/moje-przejazdy");
 }
@@ -244,7 +243,6 @@ export async function decideRequest(formData: FormData) {
     });
   }
 
-  revalidatePath("/panel-kierowcy");
   revalidatePath("/moje-przejazdy");
   revalidatePath("/konto");
 }
@@ -271,6 +269,5 @@ export async function sendMessage(formData: FormData) {
     data: { requestId, senderId: userId, body },
   });
 
-  revalidatePath("/panel-kierowcy");
   revalidatePath("/moje-przejazdy");
 }

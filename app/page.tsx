@@ -204,23 +204,23 @@ function RecentRideRow({ ride }: { ride: RecentRide }) {
   return (
     <Link
       href={`/przejazd/${ride.rideId}`}
-      className="flex items-center justify-between gap-3 rounded-2xl bg-card p-4 shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md hover:ring-border"
+      className="flex items-center justify-between gap-3 rounded-2xl bg-card p-4 shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md hover:ring-border min-w-0"
     >
-      <div className="flex items-center gap-3">
-        <span className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
+      <div className="flex items-center gap-3 min-w-0 flex-1">
+        <span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
           {ride.kind === "BUS" ? (
             <Bus className="size-5" />
           ) : (
             <Car className="size-5" />
           )}
         </span>
-        <div>
+        <div className="min-w-0 flex-1">
           <p className="flex items-center gap-1.5 text-sm font-semibold">
-            {ride.originLabel}
-            <ArrowRight className="size-3.5 text-primary" />
-            {ride.destinationLabel}
+            <span className="truncate min-w-0">{ride.originLabel}</span>
+            <ArrowRight className="size-3.5 shrink-0 text-primary" />
+            <span className="truncate min-w-0">{ride.destinationLabel}</span>
           </p>
-          <p className="text-xs text-muted-foreground">
+          <p className="text-xs text-muted-foreground truncate">
             {formatDateTime(ride.departureAt)}
             {ride.counterpart
               ? ` · ${ride.role === "driver" ? "pasażer" : "kierowca"}: ${ride.counterpart}`
@@ -228,7 +228,7 @@ function RecentRideRow({ ride }: { ride: RecentRide }) {
           </p>
         </div>
       </div>
-      <span className="font-heading text-sm font-bold text-primary">
+      <span className="font-heading text-sm font-bold text-primary shrink-0">
         {formatPrice(ride.price)}
       </span>
     </Link>
