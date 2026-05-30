@@ -12,7 +12,7 @@ const adapter = new PrismaPg({
 });
 const prisma = new PrismaClient({ adapter });
 
-// --- Demo locations in the Nowy Sacz subregion (lat/lng) ---
+// --- Demo locations in Malopolska (lat/lng) ---
 const L = {
   nsRynek: { label: "Nowy Sacz, Rynek", locality: "Nowy Sacz", lat: 49.6219, lng: 20.6973 },
   nsDworzec: { label: "Nowy Sacz, Dworzec PKP/MDA", locality: "Nowy Sacz", lat: 49.6068, lng: 20.6927 },
@@ -28,9 +28,44 @@ const L = {
   lacko: { label: "Lacko, Centrum", locality: "Lacko", lat: 49.5556, lng: 20.435 },
   nawojowa: { label: "Nawojowa, Centrum", locality: "Nawojowa", lat: 49.5839, lng: 20.7472 },
   kamionka: { label: "Kamionka Wielka", locality: "Kamionka Wielka", lat: 49.5897, lng: 20.8003 },
+  krakowRynek: { label: "Krakow, Rynek Glowny", locality: "Krakow", lat: 50.0619, lng: 19.9368 },
+  krakowDworzec: { label: "Krakow, Dworzec Glowny", locality: "Krakow", lat: 50.0673, lng: 19.9476 },
+  krakowCzyzyny: { label: "Krakow, Czyzyny", locality: "Krakow", lat: 50.0746, lng: 20.0065 },
+  tarnow: { label: "Tarnow, Rynek", locality: "Tarnow", lat: 50.0121, lng: 20.9858 },
+  bochnia: { label: "Bochnia, Rynek", locality: "Bochnia", lat: 49.9691, lng: 20.4303 },
+  wieliczka: { label: "Wieliczka, Rynek", locality: "Wieliczka", lat: 49.9874, lng: 20.0647 },
+  brzesko: { label: "Brzesko, Rynek", locality: "Brzesko", lat: 49.9699, lng: 20.6061 },
+  niepolomice: { label: "Niepolomice, Rynek", locality: "Niepolomice", lat: 50.0407, lng: 20.2228 },
+  skawina: { label: "Skawina, Rynek", locality: "Skawina", lat: 49.9759, lng: 19.8287 },
+  myslenice: { label: "Myslenice, Rynek", locality: "Myslenice", lat: 49.8338, lng: 19.9383 },
+  wadowice: { label: "Wadowice, Rynek", locality: "Wadowice", lat: 49.8835, lng: 19.4936 },
+  andrychow: { label: "Andrychow, Rynek", locality: "Andrychow", lat: 49.854, lng: 19.3383 },
+  oswiecim: { label: "Oswiecim, Rynek", locality: "Oswiecim", lat: 50.0344, lng: 19.2104 },
+  chrzanow: { label: "Chrzanow, Rynek", locality: "Chrzanow", lat: 50.1355, lng: 19.402 },
+  olkusz: { label: "Olkusz, Rynek", locality: "Olkusz", lat: 50.2813, lng: 19.565 },
+  miechow: { label: "Miechow, Rynek", locality: "Miechow", lat: 50.3565, lng: 20.0279 },
+  proszowice: { label: "Proszowice, Rynek", locality: "Proszowice", lat: 50.1926, lng: 20.2891 },
+  dabrowaTarnowska: { label: "Dabrowa Tarnowska, Rynek", locality: "Dabrowa Tarnowska", lat: 50.1746, lng: 20.9866 },
+  tuchow: { label: "Tuchow, Rynek", locality: "Tuchow", lat: 49.8948, lng: 21.0541 },
+  gorlice: { label: "Gorlice, Rynek", locality: "Gorlice", lat: 49.6556, lng: 21.159 },
+  biecz: { label: "Biecz, Rynek", locality: "Biecz", lat: 49.7359, lng: 21.2639 },
+  rabka: { label: "Rabka-Zdroj, Centrum", locality: "Rabka-Zdroj", lat: 49.6089, lng: 19.9665 },
+  nowyTarg: { label: "Nowy Targ, Rynek", locality: "Nowy Targ", lat: 49.4772, lng: 20.0324 },
+  zakopane: { label: "Zakopane, Krupowki", locality: "Zakopane", lat: 49.2992, lng: 19.9496 },
+  suchaBeskidzka: { label: "Sucha Beskidzka, Rynek", locality: "Sucha Beskidzka", lat: 49.7419, lng: 19.5943 },
 };
 
 type Loc = (typeof L)[keyof typeof L];
+type CarRideSeed = {
+  driverId: string;
+  origin: Loc;
+  destination: Loc;
+  departureAt: Date;
+  seats: number;
+  price: number | null;
+  description?: string;
+  waypoints?: Loc[];
+};
 
 function originData(loc: Loc) {
   return {
@@ -71,6 +106,30 @@ async function main() {
       { name: "Piotr Nowak", email: "piotr@demo.razemwdroge.pl", verified: true, rating: 4.7, ratingCount: 21 },
       { name: "Marek Wisniewski", email: "marek@demo.razemwdroge.pl", verified: false, rating: 4.5, ratingCount: 9 },
       { name: "Katarzyna Zajac", email: "kasia@demo.razemwdroge.pl", verified: true, rating: 5.0, ratingCount: 14 },
+      { name: "Agnieszka Wrobel", email: "agnieszka@demo.razemwdroge.pl", verified: true, rating: 4.8, ratingCount: 17 },
+      { name: "Michal Zielinski", email: "michal@demo.razemwdroge.pl", verified: true, rating: 4.6, ratingCount: 12 },
+      { name: "Joanna Kaczmarek", email: "joanna@demo.razemwdroge.pl", verified: false, rating: 4.4, ratingCount: 7 },
+      { name: "Pawel Lewandowski", email: "pawel@demo.razemwdroge.pl", verified: true, rating: 4.9, ratingCount: 31 },
+      { name: "Magdalena Mazur", email: "magdalena@demo.razemwdroge.pl", verified: true, rating: 4.7, ratingCount: 18 },
+      { name: "Krzysztof Baran", email: "krzysztof@demo.razemwdroge.pl", verified: false, rating: 4.2, ratingCount: 5 },
+      { name: "Natalia Wojcik", email: "natalia@demo.razemwdroge.pl", verified: true, rating: 4.8, ratingCount: 24 },
+      { name: "Grzegorz Lis", email: "grzegorz@demo.razemwdroge.pl", verified: true, rating: 4.5, ratingCount: 10 },
+      { name: "Monika Sowa", email: "monika@demo.razemwdroge.pl", verified: true, rating: 4.9, ratingCount: 19 },
+      { name: "Robert Dudek", email: "robert@demo.razemwdroge.pl", verified: false, rating: 4.3, ratingCount: 6 },
+      { name: "Sylwia Ciesla", email: "sylwia@demo.razemwdroge.pl", verified: true, rating: 4.6, ratingCount: 13 },
+      { name: "Lukasz Pawlik", email: "lukasz@demo.razemwdroge.pl", verified: true, rating: 4.7, ratingCount: 16 },
+      { name: "Beata Grabowska", email: "beata@demo.razemwdroge.pl", verified: false, rating: 4.1, ratingCount: 4 },
+      { name: "Dariusz Malek", email: "dariusz@demo.razemwdroge.pl", verified: true, rating: 4.8, ratingCount: 22 },
+      { name: "Iwona Adamczyk", email: "iwona@demo.razemwdroge.pl", verified: true, rating: 4.5, ratingCount: 15 },
+      { name: "Sebastian Krupa", email: "sebastian@demo.razemwdroge.pl", verified: false, rating: 4.0, ratingCount: 3 },
+      { name: "Karolina Bednarz", email: "karolina@demo.razemwdroge.pl", verified: true, rating: 4.9, ratingCount: 27 },
+      { name: "Mateusz Wilk", email: "mateusz@demo.razemwdroge.pl", verified: true, rating: 4.6, ratingCount: 11 },
+      { name: "Patrycja Krol", email: "patrycja@demo.razemwdroge.pl", verified: true, rating: 4.7, ratingCount: 20 },
+      { name: "Rafal Gorski", email: "rafal@demo.razemwdroge.pl", verified: false, rating: 4.2, ratingCount: 8 },
+      { name: "Dorota Kurek", email: "dorota@demo.razemwdroge.pl", verified: true, rating: 4.8, ratingCount: 25 },
+      { name: "Tadeusz Sikora", email: "tadeusz@demo.razemwdroge.pl", verified: true, rating: 4.4, ratingCount: 9 },
+      { name: "Marta Nowicka", email: "marta@demo.razemwdroge.pl", verified: false, rating: 4.3, ratingCount: 6 },
+      { name: "Filip Urbanski", email: "filip@demo.razemwdroge.pl", verified: true, rating: 4.6, ratingCount: 14 },
     ].map((u) => prisma.user.create({ data: u })),
   );
 
@@ -78,23 +137,102 @@ async function main() {
     [
       { name: "Tomasz Demo", email: "tomasz@demo.razemwdroge.pl", verified: false, rating: 4.8, ratingCount: 6 },
       { name: "Ewa Demo", email: "ewa@demo.razemwdroge.pl", verified: true, rating: 4.6, ratingCount: 11 },
+      { name: "Julia Sobczak", email: "julia@demo.razemwdroge.pl", verified: true, rating: 4.7, ratingCount: 8 },
+      { name: "Adam Czerwinski", email: "adam@demo.razemwdroge.pl", verified: false, rating: 4.2, ratingCount: 3 },
+      { name: "Oliwia Stec", email: "oliwia@demo.razemwdroge.pl", verified: true, rating: 4.9, ratingCount: 12 },
+      { name: "Marcin Bialek", email: "marcin@demo.razemwdroge.pl", verified: true, rating: 4.5, ratingCount: 7 },
+      { name: "Weronika Wrona", email: "weronika@demo.razemwdroge.pl", verified: false, rating: 4.1, ratingCount: 2 },
+      { name: "Damian Madej", email: "damian@demo.razemwdroge.pl", verified: true, rating: 4.6, ratingCount: 9 },
+      { name: "Aleksandra Kopec", email: "aleksandra@demo.razemwdroge.pl", verified: true, rating: 4.8, ratingCount: 13 },
+      { name: "Norbert Borkowski", email: "norbert@demo.razemwdroge.pl", verified: false, rating: 4.0, ratingCount: 1 },
+      { name: "Zuzanna Cichy", email: "zuzanna@demo.razemwdroge.pl", verified: true, rating: 4.7, ratingCount: 10 },
+      { name: "Szymon Kania", email: "szymon@demo.razemwdroge.pl", verified: true, rating: 4.4, ratingCount: 5 },
     ].map((u) => prisma.user.create({ data: u })),
   );
 
   const [anna, piotr, marek, kasia] = drivers;
   const [tomasz, ewa] = passengers;
+  const totalDemoUsers = drivers.length + passengers.length;
+
+  if (totalDemoUsers < 40) {
+    throw new Error(`Seeder requires at least 40 demo users, got ${totalDemoUsers}.`);
+  }
+
+  const malopolskaRoutePatterns: { origin: Loc; destination: Loc; waypoints?: Loc[] }[] = [
+    { origin: L.krakowDworzec, destination: L.tarnow, waypoints: [L.bochnia, L.brzesko] },
+    { origin: L.tarnow, destination: L.krakowDworzec, waypoints: [L.brzesko, L.bochnia] },
+    { origin: L.krakowRynek, destination: L.wieliczka },
+    { origin: L.wieliczka, destination: L.krakowCzyzyny, waypoints: [L.krakowDworzec] },
+    { origin: L.krakowDworzec, destination: L.nowyTarg, waypoints: [L.myslenice, L.rabka] },
+    { origin: L.nowyTarg, destination: L.zakopane },
+    { origin: L.zakopane, destination: L.krakowDworzec, waypoints: [L.nowyTarg, L.rabka] },
+    { origin: L.krakowRynek, destination: L.oswiecim, waypoints: [L.chrzanow] },
+    { origin: L.oswiecim, destination: L.krakowDworzec, waypoints: [L.chrzanow] },
+    { origin: L.krakowDworzec, destination: L.olkusz },
+    { origin: L.olkusz, destination: L.miechow },
+    { origin: L.miechow, destination: L.krakowRynek, waypoints: [L.proszowice] },
+    { origin: L.proszowice, destination: L.krakowCzyzyny },
+    { origin: L.bochnia, destination: L.niepolomice },
+    { origin: L.niepolomice, destination: L.krakowDworzec },
+    { origin: L.skawina, destination: L.krakowRynek },
+    { origin: L.myslenice, destination: L.krakowDworzec },
+    { origin: L.wadowice, destination: L.krakowDworzec, waypoints: [L.skawina] },
+    { origin: L.andrychow, destination: L.wadowice },
+    { origin: L.suchaBeskidzka, destination: L.wadowice },
+    { origin: L.rabka, destination: L.myslenice },
+    { origin: L.nowyTarg, destination: L.krakowDworzec, waypoints: [L.rabka, L.myslenice] },
+    { origin: L.tarnow, destination: L.gorlice, waypoints: [L.tuchow] },
+    { origin: L.gorlice, destination: L.tarnow, waypoints: [L.tuchow] },
+    { origin: L.gorlice, destination: L.biecz },
+    { origin: L.biecz, destination: L.grybow },
+    { origin: L.grybow, destination: L.nsDworzec, waypoints: [L.kamionka] },
+    { origin: L.nsRynek, destination: L.tarnow, waypoints: [L.grybow, L.tuchow] },
+    { origin: L.tarnow, destination: L.dabrowaTarnowska },
+    { origin: L.dabrowaTarnowska, destination: L.brzesko },
+    { origin: L.brzesko, destination: L.nsRynek, waypoints: [L.lacko] },
+    { origin: L.limanowa, destination: L.krakowDworzec, waypoints: [L.myslenice] },
+    { origin: L.limanowa, destination: L.nsRynek },
+    { origin: L.piwniczna, destination: L.krynica },
+    { origin: L.krynica, destination: L.muszyna },
+    { origin: L.muszyna, destination: L.nsRynek, waypoints: [L.piwniczna, L.starySacz] },
+    { origin: L.starySacz, destination: L.lacko },
+    { origin: L.lacko, destination: L.limanowa },
+    { origin: L.nawojowa, destination: L.grybow },
+    { origin: L.kamionka, destination: L.gorlice, waypoints: [L.grybow] },
+  ];
+
+  const extraCarRides: CarRideSeed[] = Array.from({ length: 200 }, (_, i) => {
+    const route = malopolskaRoutePatterns[i % malopolskaRoutePatterns.length];
+    const distance = haversineKm(
+      { lat: route.origin.lat, lng: route.origin.lng },
+      { lat: route.destination.lat, lng: route.destination.lng },
+    );
+    const hour = [5, 6, 7, 8, 9, 12, 14, 15, 16, 17, 18, 19][i % 12];
+    const minute = [0, 10, 15, 20, 30, 40, 45, 50][i % 8];
+
+    return {
+      driverId: drivers[i % drivers.length].id,
+      origin: route.origin,
+      destination: route.destination,
+      departureAt: at(Math.floor(i / 14), hour, minute),
+      seats: (i % 4) + 1,
+      price: Math.max(5, Math.round(distance * 0.32)),
+      description: [
+        "Regularny przejazd po Malopolsce, miejsce na maly bagaz.",
+        "Dojazd do pracy lub na uczelnie, moge zabrac z okolicy centrum.",
+        "Elastyczny punkt odbioru na trasie po wczesniejszym ustaleniu.",
+        "Spokojny przejazd, preferowany kontakt przez wiadomosc w aplikacji.",
+      ][i % 4],
+      waypoints: route.waypoints,
+    };
+  });
+
+  if (extraCarRides.length !== 200) {
+    throw new Error(`Seeder requires exactly 200 extra Malopolska rides, got ${extraCarRides.length}.`);
+  }
 
   // --- CAR rides ---
-  const carRides: {
-    driverId: string;
-    origin: Loc;
-    destination: Loc;
-    departureAt: Date;
-    seats: number;
-    price: number | null;
-    description?: string;
-    waypoints?: Loc[];
-  }[] = [
+  const carRides: CarRideSeed[] = [
     {
       driverId: anna.id,
       origin: L.starySacz,
@@ -182,6 +320,7 @@ async function main() {
       seats: 3,
       price: 5,
     },
+    ...extraCarRides,
   ];
 
   const createdCarRides = [];
@@ -376,7 +515,7 @@ async function main() {
   }
 
   console.log(
-    `Done. Users: ${drivers.length + passengers.length}, CAR rides: ${createdCarRides.length}, BUS rides: ${createdBusRides.length}.`,
+    `Done. Users: ${totalDemoUsers}, CAR rides: ${createdCarRides.length}, BUS rides: ${createdBusRides.length}.`,
   );
 }
 
