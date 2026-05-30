@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Logo } from "@/components/logo";
+import { PromoIllustration } from "@/components/illustrations/promo-illustration";
 
 type NavItem = {
   href: string;
@@ -70,9 +71,9 @@ export function AppShell({
   const firstName = (user.name ?? "").split(" ")[0] || "Podróżniku";
 
   return (
-    <div className="flex min-h-full">
+    <div className="flex min-h-full bg-muted/30">
       {/* Sidebar — desktop */}
-      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-sidebar-border bg-sidebar px-4 py-5 lg:flex">
+      <aside className="sticky top-0 hidden h-screen w-64 shrink-0 flex-col border-r border-transparent bg-sidebar px-4 py-5 shadow-[4px_0_24px_rgba(0,0,0,0.02)] lg:flex">
         <Link href="/" className="px-1">
           <Logo />
         </Link>
@@ -85,20 +86,20 @@ export function AppShell({
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "group flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
+                  "group flex items-center gap-3 rounded-2xl px-4 py-3 text-sm font-medium transition-all",
                   active
-                    ? "bg-primary text-primary-foreground shadow-sm"
-                    : "text-sidebar-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground",
+                    ? "bg-emerald-50 text-emerald-900 dark:bg-emerald-950/50 dark:text-emerald-100"
+                    : "text-sidebar-foreground hover:bg-sidebar-accent/50 hover:text-sidebar-accent-foreground",
                 )}
               >
-                <item.icon className="size-[18px]" />
+                <item.icon className={cn("size-[18px]", active && "text-emerald-600 dark:text-emerald-400")} />
                 <span className="flex-1">{item.label}</span>
                 {item.badge ? (
                   <span
                     className={cn(
-                      "grid size-5 place-items-center rounded-full text-[11px] font-semibold",
+                      "grid size-5 place-items-center rounded-full text-[11px] font-bold",
                       active
-                        ? "bg-primary-foreground/20 text-primary-foreground"
+                        ? "bg-emerald-600 text-white"
                         : "bg-primary text-primary-foreground",
                     )}
                   >
@@ -190,14 +191,19 @@ export function AppShell({
 
 function PromoCard() {
   return (
-    <div className="mt-4 rounded-2xl bg-gradient-to-br from-primary to-emerald-600 p-4 text-primary-foreground">
-      <p className="font-heading text-sm font-bold">
-        Razem zmieniamy drogi na lepsze 🌱
-      </p>
-      <p className="mt-1 text-xs text-primary-foreground/85">
-        Dzięki wspólnym przejazdom mniej spalin, mniej korków i lepsze powietrze
-        w regionie.
-      </p>
+    <div className="mt-4 overflow-hidden rounded-3xl bg-emerald-50 dark:bg-emerald-950/30">
+      <div className="p-5 pb-0">
+        <p className="font-heading text-sm font-bold text-emerald-900 dark:text-emerald-100">
+          Razem zmieniamy drogi na lepsze! 🌱
+        </p>
+        <p className="mt-2 text-xs leading-relaxed text-emerald-700 dark:text-emerald-300/80">
+          Dzięki wspólnym przejazdom mniej spalin, mniej korków, lepsze powietrze.
+        </p>
+        <Link href="/o-nas" className="mt-3 inline-block text-xs font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300">
+          Dowiedz się więcej &rarr;
+        </Link>
+      </div>
+      <PromoIllustration className="mt-2 h-24 w-full" />
     </div>
   );
 }

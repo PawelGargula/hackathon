@@ -23,6 +23,9 @@ type Props = {
   required?: boolean;
   defaultValue?: GeoPoint | null;
   onSelect?: (point: GeoPoint | null) => void;
+  className?: string;
+  labelClassName?: string;
+  inputClassName?: string;
 };
 
 export function LocationAutocomplete({
@@ -32,6 +35,9 @@ export function LocationAutocomplete({
   required,
   defaultValue,
   onSelect,
+  className,
+  labelClassName,
+  inputClassName,
 }: Props) {
   const id = useId();
   const [text, setText] = useState(defaultValue?.label ?? "");
@@ -90,13 +96,13 @@ export function LocationAutocomplete({
   }
 
   return (
-    <div className="grid gap-1.5" ref={containerRef}>
-      {label && <Label htmlFor={id}>{label}</Label>}
+    <div className={cn("grid gap-1.5", className)} ref={containerRef}>
+      {label && <Label htmlFor={id} className={labelClassName}>{label}</Label>}
       <div className="relative">
         <MapPin className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
         <Input
           id={id}
-          className="pl-8"
+          className={cn("pl-8", inputClassName)}
           autoComplete="off"
           placeholder={placeholder}
           value={text}

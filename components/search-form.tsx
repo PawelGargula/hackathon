@@ -24,35 +24,47 @@ export function SearchForm({ defaults }: Props) {
     <form
       method="get"
       action="/szukaj"
-      className="grid gap-4 rounded-2xl bg-card p-5 ring-1 ring-border sm:grid-cols-2"
+      className="flex flex-col gap-3 rounded-2xl bg-card p-3 shadow-md ring-1 ring-border/50 lg:flex-row lg:items-center lg:rounded-full lg:p-2 lg:pl-6"
     >
-      <LocationAutocomplete
-        name="origin"
-        label="Skąd"
-        placeholder="np. Nowy Sącz, Rynek"
-        required
-        defaultValue={defaults?.origin}
-      />
-      <LocationAutocomplete
-        name="destination"
-        label="Dokąd"
-        placeholder="np. Stary Sącz, Rynek"
-        required
-        defaultValue={defaults?.destination}
-      />
-      <div className="grid gap-1.5">
-        <Label htmlFor="when">Kiedy</Label>
+      <div className="flex-1">
+        <LocationAutocomplete
+          name="origin"
+          label="Skąd"
+          placeholder="np. Nowy Sącz"
+          required
+          defaultValue={defaults?.origin}
+          labelClassName="lg:sr-only"
+          inputClassName="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
+        />
+      </div>
+      <div className="hidden h-8 w-px bg-border lg:block" />
+      <div className="flex-1">
+        <LocationAutocomplete
+          name="destination"
+          label="Dokąd"
+          placeholder="np. Stary Sącz"
+          required
+          defaultValue={defaults?.destination}
+          labelClassName="lg:sr-only"
+          inputClassName="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
+        />
+      </div>
+      <div className="hidden h-8 w-px bg-border lg:block" />
+      <div className="flex-1 grid gap-1.5 lg:gap-0">
+        <Label htmlFor="when" className="lg:sr-only">Kiedy</Label>
         <Input
           id="when"
           name="when"
           type="datetime-local"
           defaultValue={defaults?.when}
           required
+          className="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
         />
       </div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="grid gap-1.5">
-          <Label htmlFor="seats">Miejsca</Label>
+      <div className="hidden h-8 w-px bg-border lg:block" />
+      <div className="flex gap-3 lg:w-auto">
+        <div className="w-20 grid gap-1.5 lg:gap-0">
+          <Label htmlFor="seats" className="lg:sr-only">Miejsca</Label>
           <Input
             id="seats"
             name="seats"
@@ -60,27 +72,14 @@ export function SearchForm({ defaults }: Props) {
             min={1}
             max={8}
             defaultValue={defaults?.seats ?? "1"}
-          />
-        </div>
-        <div className="grid gap-1.5">
-          <Label htmlFor="flex">Elastyczność (h)</Label>
-          <Input
-            id="flex"
-            name="flex"
-            type="number"
-            min={0}
-            max={12}
-            step={1}
-            placeholder="dowolnie"
-            defaultValue={defaults?.flex}
+            className="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
+            title="Liczba miejsc"
           />
         </div>
       </div>
-      <div className="sm:col-span-2">
-        <Button type="submit" size="lg" className="w-full sm:w-auto">
-          <Search /> Szukaj przejazdów
-        </Button>
-      </div>
+      <Button type="submit" size="lg" className="w-full lg:w-auto lg:rounded-full">
+        <Search className="size-4" /> Szukaj
+      </Button>
     </form>
   );
 }

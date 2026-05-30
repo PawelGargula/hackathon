@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Outfit, Geist_Mono } from "next/font/google";
 import { auth } from "@/lib/auth";
 import { getNavCounts } from "@/lib/rides";
 import { AppShell } from "@/components/app-shell";
@@ -7,9 +7,9 @@ import { SiteNav } from "@/components/site-nav";
 import { SignOutButton } from "@/components/sign-out-button";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const outfit = Outfit({
+  variable: "--font-sans",
+  subsets: ["latin", "latin-ext"],
 });
 
 const geistMono = Geist_Mono({
@@ -37,7 +37,7 @@ export default async function RootLayout({
   return (
     <html
       lang="pl"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full">
         {user ? (

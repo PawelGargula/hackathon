@@ -28,6 +28,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { formatDateTime, formatPrice } from "@/lib/format";
+import { HeroIllustration } from "@/components/illustrations/hero-illustration";
 
 export default async function HomePage() {
   const session = await auth();
@@ -55,17 +56,28 @@ async function Dashboard({
   }));
 
   return (
-    <div className="mx-auto max-w-6xl space-y-6">
+    <div className="mx-auto max-w-6xl space-y-8">
       {/* Hero + quick search */}
-      <section className="rounded-3xl bg-gradient-to-br from-primary to-emerald-700 p-6 text-primary-foreground sm:p-8">
-        <h1 className="font-heading text-2xl font-bold sm:text-3xl">
-          Cześć, {firstName}! Dokąd dzisiaj jedziemy?
-        </h1>
-        <p className="mt-1 max-w-2xl text-sm text-primary-foreground/85">
-          Wybieraj wspólne przejazdy i oszczędzaj — taniej, wygodniej i bardziej
-          ekologicznie.
-        </p>
-        <div className="mt-5 text-foreground">
+      <section className="relative overflow-hidden rounded-[2rem] bg-emerald-50 px-6 py-8 dark:bg-emerald-950/30 sm:px-10 sm:py-12">
+        <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-xl">
+            <h1 className="font-heading text-3xl font-bold text-emerald-950 dark:text-emerald-50 sm:text-4xl">
+              Cześć, {firstName}! 👋
+              <span className="block mt-2 text-xl font-medium text-emerald-800 dark:text-emerald-200">
+                Dokąd jedziemy dzisiaj?
+              </span>
+            </h1>
+            <p className="mt-4 text-emerald-700 dark:text-emerald-300/80">
+              Wybieraj wspólne przejazdy i oszczędzaj!
+              <br />
+              Taniej, wygodniej i ekologicznie 🌱
+            </p>
+          </div>
+          <div className="hidden lg:block lg:w-1/2">
+            <HeroIllustration className="h-48 w-full" />
+          </div>
+        </div>
+        <div className="relative z-20 mt-8">
           <SearchForm />
         </div>
       </section>
@@ -152,11 +164,11 @@ async function Dashboard({
         ) : (
           <div className="grid gap-4 lg:grid-cols-2">
             <RouteMap segments={segments} className="h-72" />
-            <ul className="flex flex-col gap-2">
+            <ul className="flex flex-col gap-3">
               {data.popularRoutes.map((r) => (
                 <li
                   key={`${r.from}-${r.to}`}
-                  className="flex items-center justify-between gap-2 rounded-xl bg-card px-4 py-3 text-sm ring-1 ring-border"
+                  className="flex items-center justify-between gap-2 rounded-2xl bg-card px-5 py-4 text-sm shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md"
                 >
                   <span className="flex items-center gap-2 font-medium">
                     {r.from}
@@ -192,7 +204,7 @@ function RecentRideRow({ ride }: { ride: RecentRide }) {
   return (
     <Link
       href={`/przejazd/${ride.rideId}`}
-      className="flex items-center justify-between gap-3 rounded-2xl bg-card p-4 ring-1 ring-border transition-shadow hover:shadow-md"
+      className="flex items-center justify-between gap-3 rounded-2xl bg-card p-4 shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md hover:ring-border"
     >
       <div className="flex items-center gap-3">
         <span className="grid size-10 place-items-center rounded-full bg-primary/10 text-primary">
@@ -236,17 +248,19 @@ function StatCard({
 }) {
   return (
     <div
-      className={`flex flex-col gap-1 rounded-2xl p-4 ring-1 ${
+      className={`flex flex-col gap-2 rounded-2xl p-5 shadow-sm ring-1 transition-all hover:shadow-md ${
         accent
-          ? "bg-emerald-600/10 ring-emerald-600/20"
-          : "bg-card ring-border"
+          ? "bg-emerald-50/50 ring-emerald-100 dark:bg-emerald-950/20 dark:ring-emerald-900/30"
+          : "bg-card ring-border/50"
       }`}
     >
-      <Icon
-        className={`size-5 ${accent ? "text-emerald-600" : "text-primary"}`}
-      />
-      <p className="font-heading text-2xl font-bold">{value}</p>
-      <p className="text-xs text-muted-foreground">{label}</p>
+      <div className="flex items-center gap-2">
+        <Icon
+          className={`size-5 ${accent ? "text-emerald-600" : "text-emerald-600/70"}`}
+        />
+        <p className="text-xs font-medium text-muted-foreground">{label}</p>
+      </div>
+      <p className="font-heading text-3xl font-bold">{value}</p>
     </div>
   );
 }
