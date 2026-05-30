@@ -33,13 +33,18 @@ export function BadgeGrid({
           <div
             key={a.id}
             className={cn(
-              "flex flex-col items-center gap-2 rounded-2xl p-4 text-center ring-1 transition-all duration-300",
+              "relative flex flex-col items-center gap-2 rounded-2xl p-4 text-center ring-1 transition-all duration-300 overflow-hidden",
               a.unlocked
-                ? "bg-card ring-emerald-600/20 hover:shadow-md hover:scale-[1.03]"
+                ? a.isRecent
+                  ? "bg-emerald-50/50 dark:bg-emerald-950/20 ring-emerald-500/50 shadow-sm hover:scale-[1.03]"
+                  : "bg-card ring-emerald-600/20 hover:shadow-md hover:scale-[1.03]"
                 : "bg-muted/40 ring-border",
             )}
             title={a.description}
           >
+            {a.isRecent && (
+              <div className="absolute top-0 inset-x-0 h-1 bg-emerald-500" />
+            )}
             <div className="relative size-16 flex items-center justify-center">
               {imageSrc ? (
                 <Image
@@ -49,7 +54,8 @@ export function BadgeGrid({
                   height={64}
                   className={cn(
                     "object-contain transition-all duration-300",
-                    !a.unlocked && "grayscale contrast-50 opacity-40"
+                    !a.unlocked && "grayscale contrast-50 opacity-40",
+                    a.isRecent && "drop-shadow-[0_0_8px_rgba(16,185,129,0.4)]"
                   )}
                 />
               ) : (
@@ -68,14 +74,39 @@ export function BadgeGrid({
             <span
               className={cn(
                 "text-xs font-bold leading-tight mt-1",
-                !a.unlocked && "text-muted-foreground"
+                !a.unlocked && "text-muted-foreground",
+                a.isRecent && "text-emerald-700 dark:text-emerald-400"
               )}
             >
               {a.label}
             </span>
-            <span className="text-[11px] font-medium text-muted-foreground">
-              {a.unlocked ? "Odblokowana" : `Postęp: ${pct}%`}
-            </span>
+            
+            <div className="w-full mt-auto pt-1">
+              {a.unlocked ? (
+                <span className={cn(
+                  "text-[11px] font-medium",
+                  a.isRecent ? "text-emerald-600 dark:text-emerald-500" : "text-emerald-600/80 dark:text-emerald-500/80"
+                )}>
+                  {a.isRecent ? "Nowość!" : "Odblokowana"}
+                </span>
+              ) : (
+                <div className="flex flex-col gap-1.5 w-full">
+                  <div className="flex justify-between text-[10px] font-medium text-muted-foreground">
+                    <span>{a.current}</span>
+                    <span>{a.target}</span>
+                  </div>
+                  <div className="h-1.5 w-full bg-secondary rounded-full overflow-hidden">
+                    <div 
+                      className="h-full bg-primary rounded-full transition-all duration-500" 
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                  <span className="text-[10px] font-medium text-muted-foreground">
+                    {pct}%
+                  </span>
+                </div>
+              )}
+            </div>
           </div>
         );
       })}

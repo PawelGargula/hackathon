@@ -12,6 +12,7 @@ import {
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { getLifetimeImpact, getUserStats, type StatsPeriod } from "@/lib/rides";
+import { getDashboardAchievements } from "@/lib/gamification";
 import { Co2Tree } from "@/components/co2-tree";
 import { BadgeGrid } from "@/components/badge-grid";
 import { SignOutButton } from "@/components/sign-out-button";
@@ -132,8 +133,16 @@ export default async function AccountPage({
 
       {/* Achievements */}
       <section className="mt-6">
-        <h2 className="mb-3 font-heading text-lg font-bold">Odznaki</h2>
-        <BadgeGrid achievements={impact.achievements} columns={4} />
+        <div className="mb-3 flex items-center justify-between">
+          <h2 className="font-heading text-lg font-bold">Odznaki</h2>
+          <Link
+            href="/konto/osiagniecia"
+            className="text-sm font-medium text-primary hover:underline"
+          >
+            Zobacz wszystkie &rarr;
+          </Link>
+        </div>
+        <BadgeGrid achievements={getDashboardAchievements(impact.achievements)} columns={4} />
       </section>
 
       {/* Period stats */}

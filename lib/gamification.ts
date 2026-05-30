@@ -67,6 +67,7 @@ export type Achievement = {
   unlocked: boolean;
   current: number;
   target: number;
+  isRecent?: boolean;
 };
 
 export type ImpactTotals = {
@@ -131,4 +132,51 @@ export function getAchievements(totals: ImpactTotals): Achievement[] {
     ...b,
     unlocked: b.current >= b.target,
   }));
+}
+
+export function getDashboardAchievements(achievements: Achievement[]): Achievement[] {
+  const unlocked = achievements.filter((a) => a.unlocked);
+  const locked = achievements.filter((a) => !a.unlocked);
+
+  // Sort locked by progress descending
+  const lockedSortedByProgress = [...locked].sort(
+    (a, b) => b.current / b.target - a.current / a.target
+  );
+
+  const result: Achievement[] = [];
+
+  // 1. Most recent / hardest unlocked (last in the original array that is unlocked)
+  if (unlocked.length > 0) {
+    const mostRecent = unlocked[unlocked.length - 1];
+    result.push({ ...mostRecent, isRecent: true });
+  }
+
+  // 2 & 3. Two closest to be unlocked
+  const closest = lockedSortedByProgress.slice(0, 2);
+  result.push(...closest);
+
+  // 4. One tempting (hardest / lowest progress)
+  if (lockedSortedByProgress.length > 2) {
+    const tempting = lockedSortedByProgress[lockedSortedByProgress.length - 1];
+    result.push(tempting);
+  }
+
+  // If we have less than 4, fill with remaining unlocked
+  if (result.length < 4) {
+    const remainingUnlocked = unlocked.filter((a) => !result.some((r) => r.id === a.id));
+    // Add from the end (hardest)
+    for (let i = remainingUnlocked.length - 1; i >= 0 && result.length < 4; i--) {
+      result.push(remainingUnlocked[i]);
+    }
+  }
+
+  // If we still have less than 4, fill with remaining locked (should not happen with our logic, but just in case)
+  if (result.length < 4) {
+    const remainingLocked = locked.filter((a) => !result.some((r) => r.id === a.id));
+    for (let i = 0; i < remainingLocked.length && result.length < 4; i++) {
+      result.push(remainingLocked[i]);
+    }
+  }
+
+  return result.slice(0, 4);
 }

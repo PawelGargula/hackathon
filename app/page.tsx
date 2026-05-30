@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { getDashboardData, type RecentRide } from "@/lib/rides";
+import { getDashboardAchievements } from "@/lib/gamification";
 import { formatDateTime, formatPrice } from "@/lib/format";
 import { SearchForm } from "@/components/search-form";
 import { Co2Tree } from "@/components/co2-tree";
@@ -194,13 +195,13 @@ async function Dashboard({
         <div className="mb-3 flex min-w-0 items-center justify-between gap-3">
           <h2 className="min-w-0 font-heading text-lg font-bold">Odznaki</h2>
           <Link
-            href="/konto"
+            href="/konto/osiagniecia"
             className="inline-flex shrink-0 items-center gap-1 text-sm text-primary hover:underline"
           >
             Zobacz wszystkie <ArrowRight className="size-4" />
           </Link>
         </div>
-        <BadgeGrid achievements={data.achievements} columns={4} />
+        <BadgeGrid achievements={getDashboardAchievements(data.achievements)} columns={4} />
       </section>
     </div>
   );
