@@ -47,6 +47,10 @@ model User {
   email         String?   @unique
   emailVerified DateTime? @map("email_verified")
   image         String?
+  // Lightweight trust signals (display + search filter; not a full review flow).
+  verified      Boolean   @default(false)
+  rating        Float?
+  ratingCount   Int       @default(0) @map("rating_count")
   createdAt     DateTime  @default(now()) @map("created_at")
   updatedAt     DateTime  @updatedAt @map("updated_at")
   accounts      Account[]

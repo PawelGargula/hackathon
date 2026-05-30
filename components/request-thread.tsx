@@ -32,7 +32,7 @@ export function RequestThread({
     <div className="flex flex-col gap-2">
       <div className="flex flex-col gap-1.5">
         {messages.length === 0 && (
-          <p className="text-xs text-muted-foreground">Brak wiadomosci.</p>
+          <p className="text-xs text-muted-foreground">Brak wiadomości.</p>
         )}
         {messages.map((m) => {
           const mine = m.senderId === currentUserId;
@@ -74,11 +74,11 @@ export function RequestThread({
           <input type="hidden" name="requestId" value={requestId} />
           <Input
             name="body"
-            placeholder="Napisz wiadomosc..."
+            placeholder="Napisz wiadomość..."
             autoComplete="off"
             required
           />
-          <Button type="submit" size="icon" aria-label="Wyslij">
+          <Button type="submit" size="icon" aria-label="Wyślij">
             <Send />
           </Button>
         </form>

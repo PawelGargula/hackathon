@@ -24,19 +24,19 @@ export function SearchForm({ defaults }: Props) {
     <form
       method="get"
       action="/szukaj"
-      className="grid gap-4 rounded-xl bg-card p-5 ring-1 ring-foreground/10 sm:grid-cols-2"
+      className="grid gap-4 rounded-2xl bg-card p-5 ring-1 ring-border sm:grid-cols-2"
     >
       <LocationAutocomplete
         name="origin"
-        label="Skad"
-        placeholder="np. Nowy Sacz, Rynek"
+        label="Skąd"
+        placeholder="np. Nowy Sącz, Rynek"
         required
         defaultValue={defaults?.origin}
       />
       <LocationAutocomplete
         name="destination"
-        label="Dokad"
-        placeholder="np. Stary Sacz, Rynek"
+        label="Dokąd"
+        placeholder="np. Stary Sącz, Rynek"
         required
         defaultValue={defaults?.destination}
       />
@@ -63,7 +63,7 @@ export function SearchForm({ defaults }: Props) {
           />
         </div>
         <div className="grid gap-1.5">
-          <Label htmlFor="flex">Elastycznosc (h)</Label>
+          <Label htmlFor="flex">Elastyczność (h)</Label>
           <Input
             id="flex"
             name="flex"
@@ -78,7 +78,7 @@ export function SearchForm({ defaults }: Props) {
       </div>
       <div className="sm:col-span-2">
         <Button type="submit" size="lg" className="w-full sm:w-auto">
-          <Search /> Szukaj przejazdow
+          <Search /> Szukaj przejazdów
         </Button>
       </div>
     </form>

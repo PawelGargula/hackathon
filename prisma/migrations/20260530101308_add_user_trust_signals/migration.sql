@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "users" ADD COLUMN     "rating" DOUBLE PRECISION,
+ADD COLUMN     "rating_count" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "verified" BOOLEAN NOT NULL DEFAULT false;

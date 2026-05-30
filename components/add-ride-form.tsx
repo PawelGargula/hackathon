@@ -32,18 +32,18 @@ export function AddRideForm() {
   return (
     <form
       action={createRide}
-      className="grid gap-5 rounded-xl bg-card p-5 ring-1 ring-foreground/10"
+      className="grid gap-5 rounded-2xl bg-card p-5 ring-1 ring-border"
     >
       <LocationAutocomplete
         name="origin"
-        label="Skad jedziesz"
-        placeholder="np. Nowy Sacz, Rynek"
+        label="Skąd jedziesz"
+        placeholder="np. Nowy Sącz, Rynek"
         required
       />
       <LocationAutocomplete
         name="destination"
-        label="Dokad jedziesz"
-        placeholder="np. Krynica-Zdroj"
+        label="Dokąd jedziesz"
+        placeholder="np. Krynica-Zdrój"
         required
       />
 
@@ -70,7 +70,7 @@ export function AddRideForm() {
               <LocationAutocomplete
                 name=""
                 label=""
-                placeholder="Miejscowosc lub punkt po drodze"
+                placeholder="Miejscowość lub punkt po drodze"
                 onSelect={(point) =>
                   setWaypoints((prev) =>
                     prev.map((x) => (x.key === w.key ? { ...x, point } : x)),
@@ -82,7 +82,7 @@ export function AddRideForm() {
               type="button"
               variant="ghost"
               size="icon"
-              aria-label="Usun punkt"
+              aria-label="Usuń punkt"
               onClick={() =>
                 setWaypoints((prev) => prev.filter((x) => x.key !== w.key))
               }
@@ -124,7 +124,7 @@ export function AddRideForm() {
             type="number"
             min={0}
             step="0.5"
-            placeholder="bezplatnie"
+            placeholder="bezpłatnie"
           />
         </div>
       </div>
@@ -134,7 +134,7 @@ export function AddRideForm() {
         <Textarea
           id="description"
           name="description"
-          placeholder="np. punkt odbioru pod przychodnia, miejsce na bagaz, elastyczna godzina."
+          placeholder="np. punkt odbioru pod przychodnią, miejsce na bagaż, elastyczna godzina."
         />
       </div>
 

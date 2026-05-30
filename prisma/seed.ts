@@ -67,17 +67,17 @@ async function main() {
   // --- Demo users (drivers + passengers) ---
   const drivers = await Promise.all(
     [
-      { name: "Anna Kowalska", email: "anna@demo.razemwdroge.pl" },
-      { name: "Piotr Nowak", email: "piotr@demo.razemwdroge.pl" },
-      { name: "Marek Wisniewski", email: "marek@demo.razemwdroge.pl" },
-      { name: "Katarzyna Zajac", email: "kasia@demo.razemwdroge.pl" },
+      { name: "Anna Kowalska", email: "anna@demo.razemwdroge.pl", verified: true, rating: 4.9, ratingCount: 38 },
+      { name: "Piotr Nowak", email: "piotr@demo.razemwdroge.pl", verified: true, rating: 4.7, ratingCount: 21 },
+      { name: "Marek Wisniewski", email: "marek@demo.razemwdroge.pl", verified: false, rating: 4.5, ratingCount: 9 },
+      { name: "Katarzyna Zajac", email: "kasia@demo.razemwdroge.pl", verified: true, rating: 5.0, ratingCount: 14 },
     ].map((u) => prisma.user.create({ data: u })),
   );
 
   const passengers = await Promise.all(
     [
-      { name: "Tomasz Demo", email: "tomasz@demo.razemwdroge.pl" },
-      { name: "Ewa Demo", email: "ewa@demo.razemwdroge.pl" },
+      { name: "Tomasz Demo", email: "tomasz@demo.razemwdroge.pl", verified: false, rating: 4.8, ratingCount: 6 },
+      { name: "Ewa Demo", email: "ewa@demo.razemwdroge.pl", verified: true, rating: 4.6, ratingCount: 11 },
     ].map((u) => prisma.user.create({ data: u })),
   );
 
