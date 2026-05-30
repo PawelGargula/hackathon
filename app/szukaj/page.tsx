@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import { redirect } from "next/navigation";
 import { SearchX } from "lucide-react";
 import { auth } from "@/lib/auth";
+import { cn } from "@/lib/utils";
 import { searchRides, type SearchResult } from "@/lib/rides";
 import { SearchForm } from "@/components/search-form";
 import { SearchFilters } from "@/components/search-filters";
@@ -58,7 +58,6 @@ export default async function SearchPage({
   searchParams: SearchParams;
 }) {
   const session = await auth();
-  if (!session?.user) redirect("/api/auth/signin");
 
   const sp = await searchParams;
   const origin = toPoint(
@@ -103,7 +102,7 @@ export default async function SearchPage({
   const results = rawResults ? applyFilters(rawResults, filters) : null;
 
   return (
-    <div className="mx-auto max-w-6xl min-w-0">
+    <div className={cn("mx-auto max-w-6xl min-w-0", !session?.user && "px-6 py-8")}>
       <h1 className="font-heading text-2xl font-bold tracking-tight">
         Szukaj przejazdu
       </h1>

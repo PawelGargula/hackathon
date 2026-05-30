@@ -1,4 +1,4 @@
-import { notFound, redirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowLeft,
@@ -19,7 +19,9 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { RideTypeBadge } from "@/components/ride-type-badge";
 import { RequestSeatForm } from "@/components/request-seat-form";
 import { RouteMap, type MapPoint } from "@/components/route-map";
+import { SignInButton } from "@/components/sign-in-button";
 import { formatDateTime, formatPrice, formatTime } from "@/lib/format";
+import { cn } from "@/lib/utils";
 
 const statusLabel: Record<string, string> = {
   PENDING: "oczekuje",
@@ -39,18 +41,19 @@ export default async function RideDetailsPage({
   params: Promise<{ id: string }>;
 }) {
   const session = await auth();
-  if (!session?.user?.id) redirect("/api/auth/signin");
 
   const { id } = await params;
   const ride = await getRideById(id);
   if (!ride) notFound();
 
-  const userId = session.user.id;
-  const isDriver = ride.driverId === userId;
-  const existingRequest = await prisma.rideRequest.findFirst({
-    where: { rideId: ride.id, passengerId: userId },
-    orderBy: { createdAt: "desc" },
-  });
+  const userId = session?.user?.id;
+  const isDriver = userId ? ride.driverId === userId : false;
+  const existingRequest = userId
+    ? await prisma.rideRequest.findFirst({
+        where: { rideId: ride.id, passengerId: userId },
+        orderBy: { createdAt: "desc" },
+      })
+    : null;
 
   const stops = [
     { label: ride.originLabel, lat: ride.originLat, lng: ride.originLng },
@@ -74,7 +77,7 @@ export default async function RideDetailsPage({
   }));
 
   return (
-    <div className="mx-auto max-w-5xl min-w-0">
+    <div className={cn("mx-auto max-w-5xl min-w-0", !session?.user && "px-6 py-8")}>
       <Link
         href="/szukaj"
         className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground"
@@ -191,7 +194,16 @@ export default async function RideDetailsPage({
           )}
 
           <div className="min-w-0 rounded-2xl bg-card p-5 ring-1 ring-border">
-            {isDriver ? (
+            {!userId ? (
+              <div className="flex flex-col gap-3 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Zaloguj się, aby dołączyć do przejazdu.
+                </p>
+                <SignInButton redirectTo={`/przejazd/${ride.id}`} className="w-full">
+                  Zaloguj się, aby zarezerwować
+                </SignInButton>
+              </div>
+            ) : isDriver ? (
               <p className="text-sm text-muted-foreground">
                 To Twój przejazd. Prośby pasażerów obsługujesz w{" "}
                 <Link href="/moje-przejazdy?tab=kierowca" className="text-primary underline">
