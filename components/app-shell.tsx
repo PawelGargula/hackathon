@@ -186,9 +186,6 @@ function PromoCard() {
         <p className="mt-2 text-xs leading-relaxed text-emerald-700 dark:text-emerald-300/80">
           Dzięki wspólnym przejazdom mniej spalin, mniej korków, lepsze powietrze.
         </p>
-        <Link href="/o-nas" className="mt-3 inline-block text-xs font-semibold text-emerald-600 hover:text-emerald-700 dark:text-emerald-400 dark:hover:text-emerald-300">
-          Dowiedz się więcej &rarr;
-        </Link>
       </div>
       <PromoIllustration className="mt-2 h-24 w-full" />
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { Plus, X } from "lucide-react";
 import {
   LocationAutocomplete,
@@ -16,6 +16,11 @@ type Waypoint = { key: number; point: GeoPoint | null };
 
 export function AddRideForm() {
   const [waypoints, setWaypoints] = useState<Waypoint[]>([]);
+  const [originPoint, setOriginPoint] = useState<GeoPoint | null>(null);
+  const [destPoint, setDestPoint] = useState<GeoPoint | null>(null);
+  const [originError, setOriginError] = useState("");
+  const [destError, setDestError] = useState("");
+  const [isPending, startTransition] = useTransition();
 
   const serialized = JSON.stringify(
     waypoints
@@ -29,23 +34,57 @@ export function AddRideForm() {
       })),
   );
 
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    let valid = true;
+    if (!originPoint) {
+      setOriginError("Wybierz lokalizację z listy podpowiedzi");
+      valid = false;
+    }
+    if (!destPoint) {
+      setDestError("Wybierz lokalizację z listy podpowiedzi");
+      valid = false;
+    }
+    if (!valid) return;
+    const formData = new FormData(e.currentTarget);
+    startTransition(() => {
+      createRide(formData);
+    });
+  }
+
   return (
     <form
-      action={createRide}
+      onSubmit={handleSubmit}
       className="grid gap-5 rounded-2xl bg-card p-5 ring-1 ring-border"
     >
-      <LocationAutocomplete
-        name="origin"
-        label="Skąd jedziesz"
-        placeholder="np. Nowy Sącz, Rynek"
-        required
-      />
-      <LocationAutocomplete
-        name="destination"
-        label="Dokąd jedziesz"
-        placeholder="np. Krynica-Zdrój"
-        required
-      />
+      <div className="grid gap-1">
+        <LocationAutocomplete
+          name="origin"
+          label="Skąd jedziesz"
+          placeholder="np. Nowy Sącz, Rynek"
+          onSelect={(point) => {
+            setOriginPoint(point);
+            if (point) setOriginError("");
+          }}
+        />
+        {originError && (
+          <p className="text-xs text-destructive">{originError}</p>
+        )}
+      </div>
+      <div className="grid gap-1">
+        <LocationAutocomplete
+          name="destination"
+          label="Dokąd jedziesz"
+          placeholder="np. Krynica-Zdrój"
+          onSelect={(point) => {
+            setDestPoint(point);
+            if (point) setDestError("");
+          }}
+        />
+        {destError && (
+          <p className="text-xs text-destructive">{destError}</p>
+        )}
+      </div>
 
       <div className="grid gap-2">
         <div className="flex items-center justify-between">
@@ -138,8 +177,8 @@ export function AddRideForm() {
         />
       </div>
 
-      <Button type="submit" size="lg" className="w-full sm:w-auto">
-        Opublikuj przejazd
+      <Button type="submit" size="lg" className="w-full sm:w-auto" disabled={isPending}>
+        {isPending ? "Publikowanie…" : "Opublikuj przejazd"}
       </Button>
     </form>
   );
