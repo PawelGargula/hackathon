@@ -5,10 +5,12 @@ export function SignInButton({
   provider = "google",
   redirectTo = "/dashboard",
   children,
+  className,
 }: {
   provider?: string;
   redirectTo?: string;
   children?: React.ReactNode;
+  className?: string;
 }) {
   return (
     <form
@@ -17,7 +19,9 @@ export function SignInButton({
         await signIn(provider, { redirectTo });
       }}
     >
-      <Button type="submit">{children ?? "Zaloguj się przez Google"}</Button>
+      <Button type="submit" className={className}>
+        {children ?? "Zaloguj się przez Google"}
+      </Button>
     </form>
   );
 }
