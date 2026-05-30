@@ -1,22 +1,15 @@
-import {
-  Award,
-  Leaf,
-  Lock,
-  Route,
-  Sparkles,
-  Trophy,
-  type LucideIcon,
-} from "lucide-react";
 import type { Achievement, BadgeIconKey } from "@/lib/gamification";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
+import { Lock } from "lucide-react";
 
-const ICONS: Record<BadgeIconKey, LucideIcon> = {
-  first: Sparkles,
-  rides: Route,
-  km: Route,
-  co2: Leaf,
-  leaf: Leaf,
-  trophy: Trophy,
+const BADGE_IMAGES: Record<BadgeIconKey, string> = {
+  first: "/assets/badge1.png",
+  rides: "/assets/badge2.png",
+  co2: "/assets/badge6.png",
+  km: "/assets/badge4.png",
+  trophy: "/assets/badge3.png",
+  leaf: "/assets/badge5.png",
 };
 
 export function BadgeGrid({
@@ -34,33 +27,48 @@ export function BadgeGrid({
       )}
     >
       {achievements.map((a) => {
-        const Icon = a.unlocked ? (ICONS[a.icon] ?? Award) : Lock;
+        const imageSrc = BADGE_IMAGES[a.icon];
         const pct = Math.min(100, Math.round((a.current / a.target) * 100));
         return (
           <div
             key={a.id}
             className={cn(
-              "flex flex-col items-center gap-2 rounded-2xl p-3 text-center ring-1 transition-colors",
+              "flex flex-col items-center gap-2 rounded-2xl p-4 text-center ring-1 transition-all duration-300",
               a.unlocked
-                ? "bg-card ring-emerald-600/20"
+                ? "bg-card ring-emerald-600/20 hover:shadow-md hover:scale-[1.03]"
                 : "bg-muted/40 ring-border",
             )}
             title={a.description}
           >
-            <span
-              className={cn(
-                "grid size-12 place-items-center rounded-full",
-                a.unlocked
-                  ? "bg-emerald-600/15 text-emerald-600"
-                  : "bg-muted text-muted-foreground",
+            <div className="relative size-16 flex items-center justify-center">
+              {imageSrc ? (
+                <Image
+                  src={imageSrc}
+                  alt={a.label}
+                  width={64}
+                  height={64}
+                  className={cn(
+                    "object-contain transition-all duration-300",
+                    !a.unlocked && "grayscale contrast-50 opacity-40"
+                  )}
+                />
+              ) : (
+                <span className="grid size-12 place-items-center rounded-full bg-muted text-muted-foreground">
+                  <Lock className="size-6" />
+                </span>
               )}
-            >
-              <Icon className="size-6" />
-            </span>
+              {!a.unlocked && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <span className="bg-zinc-950/80 text-white rounded-full p-1.5 shadow-sm">
+                    <Lock className="size-4" />
+                  </span>
+                </div>
+              )}
+            </div>
             <span
               className={cn(
-                "text-xs font-semibold leading-tight",
-                !a.unlocked && "text-muted-foreground",
+                "text-xs font-bold leading-tight mt-1",
+                !a.unlocked && "text-muted-foreground"
               )}
             >
               {a.label}

@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Razem w Drogę",
+  title: "Razem w drogę — lokalne wspólne przejazdy",
   description:
-    "Lokalne przejazdy współdzielone i kursy MPK Nowy Sącz w jednej wyszukiwarce - przeciw wykluczeniu transportowemu w subregionie nowosądeckim.",
+    "Znajdź lokalny wspólny przejazd, oszczędzaj pieniądze i sprawdzaj, ile CO₂ udało Ci się ograniczyć. Pobierz aplikację Razem w drogę i jedź taniej, wygodniej i bardziej eko.",
 };
 
 export default async function RootLayout({
@@ -37,7 +37,7 @@ export default async function RootLayout({
   return (
     <html
       lang="pl"
-      className={`${outfit.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${outfit.variable} ${geistMono.variable} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full">
         {user ? (

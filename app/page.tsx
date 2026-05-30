@@ -7,28 +7,34 @@ import {
   Leaf,
   MapPin,
   Route,
-  Search,
   TrendingUp,
   Users,
   type LucideIcon,
 } from "lucide-react";
 import { auth } from "@/lib/auth";
 import { getDashboardData, type RecentRide } from "@/lib/rides";
-import { SignInButton } from "@/components/sign-in-button";
+import { formatDateTime, formatPrice } from "@/lib/format";
 import { SearchForm } from "@/components/search-form";
 import { Co2Tree } from "@/components/co2-tree";
 import { BadgeGrid } from "@/components/badge-grid";
 import { RouteMap, type MapSegment } from "@/components/route-map";
 import { buttonVariants } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { formatDateTime, formatPrice } from "@/lib/format";
 import { HeroIllustration } from "@/components/illustrations/hero-illustration";
+
+// Nowe komponenty landing page
+import {
+  HeroSection,
+  BenefitsSection,
+  HowItWorksSection,
+  WebAppShowcaseSection,
+  Co2TreeSection,
+  BadgesSection,
+  EducationSection,
+  SafetySection,
+  LocalRoutesSection,
+  StatsSection,
+  FinalCtaSection,
+} from "@/components/landing";
 
 export default async function HomePage() {
   const session = await auth();
@@ -292,95 +298,20 @@ function EmptyState({
   );
 }
 
-const features = [
-  {
-    icon: Search,
-    title: "1. Wpisz trasę",
-    detail:
-      "Szukaj połączeń z Twojej okolicy. Podaj skąd, dokąd i kiedy chcesz jechać.",
-  },
-  {
-    icon: Route,
-    title: "2. Wybierz opcję",
-    detail:
-      "Łączymy przejazdy sąsiedzkie i rozkłady MPK Nowy Sącz na jednej liście wyników.",
-  },
-  {
-    icon: Leaf,
-    title: "3. Jedź i chroń planetę",
-    detail:
-      "Zbieraj punkty i sadź wirtualne drzewa za zaoszczędzone emisje CO2.",
-  },
-];
-
 function Landing() {
   return (
-    <div className="mx-auto max-w-6xl px-6 py-16">
-      <section className="flex flex-col gap-12 lg:flex-row lg:items-center">
-        <div className="flex-1 space-y-6">
-          <span className="inline-flex items-center gap-2 rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
-            <MapPin className="size-3.5" /> Subregion nowosądecki - pilotaż z MPK
-            Nowy Sącz
-          </span>
-          <h1 className="max-w-3xl font-heading text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">
-            Koniec z wykluczeniem komunikacyjnym.<br />
-            <span className="mt-2 block text-2xl sm:text-3xl lg:text-4xl text-emerald-600 dark:text-emerald-500">Twój transport po Sądecczyźnie w jednej aplikacji.</span>
-          </h1>
-          <p className="max-w-2xl text-lg text-muted-foreground">
-            Lokalna aplikacja do codziennych dojazdów. Pokazujemy <strong>wolne miejsce w
-            aucie</strong> sąsiada na trasie, którą ktoś i tak pokonuje, oraz pasujące kursy
-            <strong> MPK Nowy Sącz</strong> - w jednym miejscu. To nie kolejny BlaBlaCar:
-            uzupełniamy transport publiczny i działamy <strong>przeciw wykluczeniu</strong> transportowemu.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-3 pt-2">
-            <SignInButton redirectTo="/">
-              Zaloguj się przez Google
-            </SignInButton>
-            <span className="text-sm text-muted-foreground ml-2">aby dodawać przejazdy</span>
-          </div>
-        </div>
-
-        <div className="relative hidden flex-1 justify-center lg:flex">
-          <div className="absolute inset-0 rounded-full bg-emerald-500/10 blur-[80px]" />
-          <div className="relative z-10 flex h-[600px] w-[300px] flex-col overflow-hidden rounded-[3rem] border-[8px] border-zinc-900 bg-background shadow-2xl">
-            <div className="absolute inset-x-0 top-0 flex justify-center">
-              <div className="h-6 w-32 rounded-b-2xl bg-zinc-900" />
-            </div>
-            
-            <div className="flex flex-1 flex-col gap-4 bg-emerald-50 p-4 pt-10 dark:bg-emerald-950/30">
-              <HeroIllustration className="h-40 w-full" />
-              <div className="space-y-2 rounded-xl border bg-card p-3 shadow-sm">
-                <div className="h-4 w-24 animate-pulse rounded bg-muted" />
-                <div className="h-10 w-full animate-pulse rounded bg-muted" />
-                <div className="h-10 w-full animate-pulse rounded bg-muted" />
-                <div className="h-10 w-full animate-pulse rounded bg-primary/20" />
-              </div>
-              <div className="flex flex-1 flex-col gap-2 rounded-xl border bg-card p-3 shadow-sm">
-                <div className="h-16 w-full animate-pulse rounded bg-muted" />
-                <div className="h-16 w-full animate-pulse rounded bg-muted" />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="relative z-20 mt-8 sm:mt-12">
-        <SearchForm />
-      </div>
-
-      <section className="mt-20 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {features.map((item) => (
-          <Card key={item.title}>
-            <CardHeader>
-              <item.icon className="size-5 text-primary" />
-              <CardTitle>{item.title}</CardTitle>
-              <CardDescription>{item.detail}</CardDescription>
-            </CardHeader>
-            <CardContent />
-          </Card>
-        ))}
-      </section>
+    <div className="mx-auto max-w-6xl px-6 py-12 sm:py-16">
+      <HeroSection />
+      <BenefitsSection />
+      <HowItWorksSection />
+      <WebAppShowcaseSection />
+      <Co2TreeSection />
+      <BadgesSection />
+      <EducationSection />
+      <SafetySection />
+      <LocalRoutesSection />
+      <StatsSection />
+      <FinalCtaSection />
     </div>
   );
 }
