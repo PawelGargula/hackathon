@@ -13,8 +13,8 @@ export function Logo({
       <Image
         src="/logo-mini-primary.png"
         alt="Razem w Drogę Logo"
-        width={36}
-        height={36}
+        width={28}
+        height={28}
         className="object-contain"
       />
       {withText && (

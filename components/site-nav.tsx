@@ -9,7 +9,10 @@ export async function SiteNav() {
         <Link href="/">
           <Logo />
         </Link>
-        <SignInButton redirectTo="/" />
+        <SignInButton redirectTo="/">
+          <span className="hidden sm:inline">Zaloguj się przez Google</span>
+          <span className="sm:hidden">Zaloguj się</span>
+        </SignInButton>
       </nav>
     </header>
   );

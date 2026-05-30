@@ -2,6 +2,8 @@ import { MapPin, ArrowRight } from "lucide-react";
 import { SignInButton } from "@/components/sign-in-button";
 import { SearchForm } from "@/components/search-form";
 import { HeroIllustration } from "@/components/illustrations/hero-illustration";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function HeroSection() {
   return (
@@ -27,7 +29,7 @@ export function HeroSection() {
             <SignInButton redirectTo="/">
               Zaloguj się i ruszaj w drogę
             </SignInButton>
-            <a href="#jak-to-dziala" className="inline-flex items-center gap-2 text-sm font-medium text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors">
+            <a href="#jak-to-dziala" className={cn(buttonVariants({ variant: "outline" }), "gap-2 text-emerald-700 hover:text-emerald-800 dark:text-emerald-400 dark:hover:text-emerald-300 transition-colors border-emerald-200 hover:bg-emerald-50 dark:border-emerald-800/50 dark:hover:bg-emerald-900/30")}>
               Zobacz, jak to działa <ArrowRight className="size-4" />
             </a>
           </div>
