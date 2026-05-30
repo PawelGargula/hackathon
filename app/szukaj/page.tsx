@@ -103,7 +103,7 @@ export default async function SearchPage({
   const results = rawResults ? applyFilters(rawResults, filters) : null;
 
   return (
-    <div className="mx-auto max-w-6xl">
+    <div className="mx-auto max-w-6xl min-w-0">
       <h1 className="font-heading text-2xl font-bold tracking-tight">
         Szukaj przejazdu
       </h1>
@@ -124,7 +124,7 @@ export default async function SearchPage({
         />
       </div>
 
-      <div className="mt-6 grid gap-6 lg:grid-cols-[18rem_1fr]">
+      <div className="mt-6 grid min-w-0 gap-6 lg:grid-cols-[18rem_1fr]">
         <aside className="lg:sticky lg:top-20 lg:self-start">
           <Suspense
             fallback={
@@ -135,7 +135,7 @@ export default async function SearchPage({
           </Suspense>
         </aside>
 
-        <div>
+        <div className="min-w-0">
           {results ? (
             <>
               <h2 className="mb-3 text-sm font-medium text-muted-foreground">
@@ -152,7 +152,7 @@ export default async function SearchPage({
                   </p>
                 </div>
               ) : (
-                <div className="flex flex-col gap-3">
+                <div className="flex min-w-0 flex-col gap-3">
                   {results.map((r) => (
                     <RideCard key={r.ride.id} ride={r.ride} reasons={r.reasons} />
                   ))}

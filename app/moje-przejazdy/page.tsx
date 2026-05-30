@@ -41,7 +41,7 @@ export default async function MyRidesPage({
   const tab = rawTab === "kierowca" ? "kierowca" : "pasazer";
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-3xl min-w-0">
       <h1 className="font-heading text-2xl font-bold tracking-tight">
         Moje przejazdy
       </h1>
@@ -50,7 +50,7 @@ export default async function MyRidesPage({
       </p>
 
       {/* Tabs */}
-      <div className="mt-6 flex items-center gap-2 border-b border-border pb-px">
+      <div className="mt-6 flex min-w-0 items-center gap-2 overflow-x-auto border-b border-border pb-px">
         <Link
           href="/moje-przejazdy?tab=pasazer"
           className={cn(
@@ -88,6 +88,8 @@ export default async function MyRidesPage({
 
 async function PassengerView({ userId }: { userId: string }) {
   const requests = await loadPassengerRequests(userId);
+  // Server render groups rides relative to the current request time.
+  // eslint-disable-next-line react-hooks/purity
   const now = Date.now();
   const upcoming = requests.filter((r) => r.ride.departureAt.getTime() >= now);
   const past = requests.filter((r) => r.ride.departureAt.getTime() < now);
@@ -161,19 +163,19 @@ async function DriverView({ userId }: { userId: string }) {
         const pending = ride.requests.filter((r) => r.status === "PENDING").length;
 
         return (
-          <div key={ride.id} className="rounded-2xl bg-card ring-1 ring-border">
-            <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border p-4">
-              <div>
-                <p className="flex flex-wrap items-center gap-2 font-heading text-base font-bold">
-                  <span>{ride.originLabel}</span>
-                  <ArrowRight className="size-4 text-primary" />
-                  <span>{ride.destinationLabel}</span>
+          <div key={ride.id} className="min-w-0 rounded-2xl bg-card ring-1 ring-border">
+            <div className="flex flex-col items-start gap-3 border-b border-border p-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="min-w-0 flex-1">
+                <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-heading text-base font-bold">
+                  <span className="break-words">{ride.originLabel}</span>
+                  <ArrowRight className="size-4 shrink-0 text-primary" />
+                  <span className="break-words">{ride.destinationLabel}</span>
                 </p>
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {formatDateTime(ride.departureAt)}
                 </p>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {pending > 0 && <Badge variant="warning">{pending} nowe prośby</Badge>}
                 <Badge variant="outline">{free} wolnych miejsc</Badge>
               </div>
@@ -188,8 +190,8 @@ async function DriverView({ userId }: { userId: string }) {
                   key={req.id}
                   className="flex flex-col gap-2 rounded-xl border border-border p-3"
                 >
-                  <div className="flex items-center justify-between gap-2">
-                    <span className="flex items-center gap-2 text-sm font-medium">
+                  <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
+                    <span className="flex min-w-0 items-center gap-2 text-sm font-medium">
                       {req.passenger.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
@@ -202,21 +204,23 @@ async function DriverView({ userId }: { userId: string }) {
                           {(req.passenger.name ?? "?").charAt(0).toUpperCase()}
                         </span>
                       )}
-                      {req.passenger.name ?? "Pasażer"}
-                      <span className="text-muted-foreground">
+                      <span className="min-w-0 truncate">
+                        {req.passenger.name ?? "Pasażer"}
+                      </span>
+                      <span className="shrink-0 text-muted-foreground">
                         · {req.seatsRequested} miejsc
                       </span>
                     </span>
                     <RequestStatusBadge status={req.status} />
                   </div>
                   <div className="flex flex-col gap-1 text-xs text-muted-foreground">
-                    <span className="inline-flex items-center gap-1">
-                      <MapPin className="size-3.5 text-primary" />
-                      Odbiór: {req.pickupLabel}
+                    <span className="inline-flex min-w-0 items-start gap-1">
+                      <MapPin className="mt-0.5 size-3.5 shrink-0 text-primary" />
+                      <span className="min-w-0 break-words">Odbiór: {req.pickupLabel}</span>
                     </span>
-                    <span className="inline-flex items-center gap-1">
-                      <MapPin className="size-3.5 text-primary" />
-                      Cel: {req.dropoffLabel}
+                    <span className="inline-flex min-w-0 items-start gap-1">
+                      <MapPin className="mt-0.5 size-3.5 shrink-0 text-primary" />
+                      <span className="min-w-0 break-words">Cel: {req.dropoffLabel}</span>
                     </span>
                   </div>
 
@@ -230,7 +234,7 @@ async function DriverView({ userId }: { userId: string }) {
                   </div>
 
                   {req.status === "PENDING" && (
-                    <div className="flex gap-2">
+                    <div className="flex flex-wrap gap-2">
                       <form action={decideRequest}>
                         <input type="hidden" name="requestId" value={req.id} />
                         <input type="hidden" name="decision" value="accept" />
@@ -298,34 +302,34 @@ function RequestCard({
   return (
     <div
       className={cn(
-        "flex flex-col gap-3 rounded-2xl bg-card p-4 ring-1 ring-border",
+        "flex min-w-0 flex-col gap-3 rounded-2xl bg-card p-4 ring-1 ring-border",
         muted && "opacity-90",
       )}
     >
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex flex-wrap items-center justify-between gap-2">
         <RideTypeBadge kind={req.ride.kind} />
         <RequestStatusBadge status={req.status} />
       </div>
 
       <Link
         href={`/przejazd/${req.ride.id}`}
-        className="flex items-center gap-2 text-[15px] font-semibold hover:underline min-w-0"
+        className="grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto_minmax(0,1fr)] items-start gap-2 text-[15px] font-semibold hover:underline"
       >
         <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
           {req.ride.kind === "BUS" ? <Bus className="size-4" /> : <Car className="size-4" />}
         </span>
-        <span className="truncate min-w-0">{req.ride.originLabel}</span>
-        <ArrowRight className="size-4 shrink-0 text-primary" />
-        <span className="truncate min-w-0">{req.ride.destinationLabel}</span>
+        <span className="min-w-0 break-words mt-1">{req.ride.originLabel}</span>
+        <ArrowRight className="size-4 shrink-0 text-primary mt-1.5" />
+        <span className="min-w-0 break-words mt-1">{req.ride.destinationLabel}</span>
       </Link>
 
       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">
         <span>{formatDateTime(req.ride.departureAt)}</span>
         {req.ride.kind === "CAR" && req.ride.driver?.name && (
-          <span>Kierowca: {req.ride.driver.name}</span>
+          <span className="min-w-0 break-words">Kierowca: {req.ride.driver.name}</span>
         )}
         {req.ride.kind === "BUS" && (
-          <span>
+          <span className="min-w-0 break-words">
             {req.ride.operator}
             {req.ride.lineNumber ? ` · linia ${req.ride.lineNumber}` : ""}
           </span>

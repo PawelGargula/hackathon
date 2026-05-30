@@ -78,31 +78,31 @@ export default async function AccountPage({
   ]);
 
   return (
-    <div className="mx-auto max-w-4xl">
+    <div className="mx-auto max-w-4xl min-w-0">
       {/* Profile header */}
-      <div className="flex flex-col gap-4 rounded-3xl bg-card p-5 ring-1 ring-border sm:flex-row sm:items-center">
+      <div className="flex min-w-0 flex-col gap-4 rounded-3xl bg-card p-5 ring-1 ring-border sm:flex-row sm:items-center">
         {session.user.image ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={session.user.image}
             alt=""
-            className="size-16 rounded-2xl object-cover"
+            className="size-16 shrink-0 rounded-2xl object-cover"
           />
         ) : (
-          <span className="grid size-16 place-items-center rounded-2xl bg-primary/10 text-xl font-bold text-primary">
+          <span className="grid size-16 shrink-0 place-items-center rounded-2xl bg-primary/10 text-xl font-bold text-primary">
             {(session.user.name ?? "?").charAt(0).toUpperCase()}
           </span>
         )}
-        <div className="flex-1">
-          <h1 className="flex items-center gap-2 font-heading text-2xl font-bold tracking-tight">
-            {session.user.name ?? "Konto"}
+        <div className="min-w-0 flex-1">
+          <h1 className="flex min-w-0 items-center gap-2 font-heading text-2xl font-bold tracking-tight">
+            <span className="min-w-0 truncate">{session.user.name ?? "Konto"}</span>
             {profile?.verified && (
-              <BadgeCheck className="size-5 text-primary" aria-label="zweryfikowany" />
+              <BadgeCheck className="size-5 shrink-0 text-primary" aria-label="zweryfikowany" />
             )}
           </h1>
-          <p className="text-sm text-muted-foreground">{session.user.email}</p>
+          <p className="break-all text-sm text-muted-foreground">{session.user.email}</p>
           <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
-            <span className="inline-flex items-center gap-1 rounded-full bg-emerald-600/10 px-2.5 py-1 font-medium text-emerald-700 dark:text-emerald-400">
+            <span className="inline-flex min-w-0 items-center gap-1 rounded-full bg-emerald-600/10 px-2.5 py-1 font-medium text-emerald-700 dark:text-emerald-400">
               {impact.tree.emoji} Poziom {impact.tree.level} · {impact.tree.name}
             </span>
             {profile?.rating != null && (
@@ -134,7 +134,7 @@ export default async function AccountPage({
 
       {/* Period stats */}
       <section className="mt-8">
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
           <h2 className="font-heading text-lg font-bold">Statystyki okresowe</h2>
           {presets.map((p) => (
             <Link
@@ -149,7 +149,7 @@ export default async function AccountPage({
               {p.label}
             </Link>
           ))}
-          <span className="text-sm text-muted-foreground">Okres: {label}</span>
+          <span className="min-w-0 break-words text-sm text-muted-foreground">Okres: {label}</span>
         </div>
 
         <form
@@ -212,10 +212,10 @@ export default async function AccountPage({
               {stats.topZones.map((z) => (
                 <li
                   key={z.pair}
-                  className="flex items-center justify-between rounded-lg bg-card px-3 py-2 text-sm ring-1 ring-border"
+                  className="flex min-w-0 items-center justify-between gap-3 rounded-lg bg-card px-3 py-2 text-sm ring-1 ring-border"
                 >
-                  <span>{z.pair}</span>
-                  <span className="text-muted-foreground">
+                  <span className="min-w-0 truncate">{z.pair}</span>
+                  <span className="shrink-0 text-muted-foreground">
                     {z.count} {z.count === 1 ? "przejazd" : "przejazdy"}
                   </span>
                 </li>
@@ -244,11 +244,11 @@ function StatTile({
   extra?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 rounded-2xl bg-card p-4 ring-1 ring-border">
+    <div className="flex min-w-0 flex-col gap-1 rounded-2xl bg-card p-4 ring-1 ring-border">
       <Icon className="size-5 text-primary" />
-      <p className="font-heading text-2xl font-bold">{value}</p>
-      <p className="text-sm text-muted-foreground">{label}</p>
-      {extra && <p className="text-xs text-muted-foreground">{extra}</p>}
+      <p className="min-w-0 break-words font-heading text-2xl font-bold">{value}</p>
+      <p className="min-w-0 break-words text-sm text-muted-foreground">{label}</p>
+      {extra && <p className="min-w-0 break-words text-xs text-muted-foreground">{extra}</p>}
     </div>
   );
 }

@@ -27,8 +27,8 @@ export function SearchFilters() {
   );
 
   return (
-    <div className="rounded-2xl bg-card p-5 ring-1 ring-border">
-      <h2 className="flex items-center gap-2 font-heading text-base font-bold">
+    <div className="min-w-0 rounded-2xl bg-card p-5 ring-1 ring-border">
+      <h2 className="flex min-w-0 items-center gap-2 font-heading text-base font-bold">
         <SlidersHorizontal className="size-4 text-primary" /> Filtry
       </h2>
 
@@ -105,7 +105,9 @@ export function SearchFilters() {
         </div>
 
         <label className="flex cursor-pointer items-center justify-between gap-2">
-          <span className="font-medium">Tylko zweryfikowani kierowcy</span>
+          <span className="min-w-0 break-words font-medium">
+            Tylko zweryfikowani kierowcy
+          </span>
           <input
             type="checkbox"
             checked={verified}

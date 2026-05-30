@@ -4,9 +4,7 @@ import { type ReactNode } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
-  Bell,
   CalendarCheck,
-  CarFront,
   Home,
   MessageSquare,
   Plus,
@@ -141,7 +139,9 @@ export function AppShell({
           </div>
         </header>
 
-        <main className="flex-1 px-4 pb-24 pt-5 sm:px-6 lg:pb-8">{children}</main>
+        <main className="min-w-0 flex-1 overflow-x-hidden px-4 pb-24 pt-5 sm:px-6 lg:pb-8">
+          {children}
+        </main>
       </div>
 
       {/* Bottom nav — mobile */}

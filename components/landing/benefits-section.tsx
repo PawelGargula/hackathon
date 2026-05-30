@@ -1,4 +1,4 @@
-import { Wallet, Search, Leaf, MapPin, Bus } from "lucide-react";
+import { Wallet, Search, Leaf, Bus } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const benefits = [

@@ -24,47 +24,47 @@ export function SearchForm({ defaults }: Props) {
     <form
       method="get"
       action="/szukaj"
-      className="flex flex-col gap-3 rounded-2xl bg-card p-3 shadow-md ring-1 ring-border/50 lg:flex-row lg:items-center lg:rounded-full lg:p-2 lg:pl-6"
+      className="flex min-w-0 flex-col gap-3 rounded-2xl bg-card p-3 shadow-md ring-1 ring-border/50 xl:flex-row xl:items-center xl:rounded-full xl:p-2 xl:pl-6"
     >
-      <div className="relative z-30 flex-1">
+      <div className="relative z-30 min-w-0 flex-1">
         <LocationAutocomplete
           name="origin"
           label="Skąd"
           placeholder="Skąd? (np. Nowy Sącz)"
           required
           defaultValue={defaults?.origin}
-          labelClassName="lg:sr-only"
-          inputClassName="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
+          labelClassName="xl:sr-only"
+          inputClassName="xl:border-none xl:bg-transparent xl:shadow-none xl:ring-0"
         />
       </div>
-      <div className="hidden h-8 w-px bg-border lg:block relative z-20" />
-      <div className="relative z-20 flex-1">
+      <div className="relative z-20 hidden h-8 w-px bg-border xl:block" />
+      <div className="relative z-20 min-w-0 flex-1">
         <LocationAutocomplete
           name="destination"
           label="Dokąd"
           placeholder="Dokąd? (np. Stary Sącz)"
           required
           defaultValue={defaults?.destination}
-          labelClassName="lg:sr-only"
-          inputClassName="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
+          labelClassName="xl:sr-only"
+          inputClassName="xl:border-none xl:bg-transparent xl:shadow-none xl:ring-0"
         />
       </div>
-      <div className="hidden h-8 w-px bg-border lg:block relative z-10" />
-      <div className="relative z-10 flex-1 grid gap-1.5 lg:gap-0">
-        <Label htmlFor="when" className="lg:sr-only">Kiedy</Label>
+      <div className="relative z-10 hidden h-8 w-px bg-border xl:block" />
+      <div className="relative z-10 grid min-w-0 flex-1 gap-1.5 xl:gap-0">
+        <Label htmlFor="when" className="xl:sr-only">Kiedy</Label>
         <Input
           id="when"
           name="when"
           type="datetime-local"
           defaultValue={defaults?.when}
           required
-          className="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
+          className="xl:border-none xl:bg-transparent xl:shadow-none xl:ring-0"
         />
       </div>
-      <div className="hidden h-8 w-px bg-border lg:block relative z-0" />
-      <div className="relative z-0 flex gap-3 lg:w-auto">
-        <div className="w-20 grid gap-1.5 lg:gap-0">
-          <Label htmlFor="seats" className="lg:sr-only">Miejsca</Label>
+      <div className="relative z-0 hidden h-8 w-px bg-border xl:block" />
+      <div className="relative z-0 flex min-w-0 gap-3 xl:w-auto">
+        <div className="grid w-20 gap-1.5 xl:gap-0">
+          <Label htmlFor="seats" className="xl:sr-only">Miejsca</Label>
           <Input
             id="seats"
             name="seats"
@@ -72,12 +72,12 @@ export function SearchForm({ defaults }: Props) {
             min={1}
             max={8}
             defaultValue={defaults?.seats ?? "1"}
-            className="lg:border-none lg:bg-transparent lg:shadow-none lg:ring-0"
+            className="xl:border-none xl:bg-transparent xl:shadow-none xl:ring-0"
             title="Liczba miejsc"
           />
         </div>
       </div>
-      <Button type="submit" size="lg" className="w-full lg:w-auto lg:rounded-full">
+      <Button type="submit" size="lg" className="w-full xl:w-auto xl:rounded-full">
         <Search className="size-4" /> Szukaj
       </Button>
     </form>

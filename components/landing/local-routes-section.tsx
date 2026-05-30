@@ -24,12 +24,12 @@ export function LocalRoutesSection() {
         </p>
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 max-w-4xl mx-auto">
+      <div className="mx-auto grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {routes.map((route, index) => (
-          <div key={index} className="flex items-center justify-between gap-2 rounded-2xl bg-card px-5 py-4 text-sm shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md hover:ring-emerald-500/50">
-            <span className="font-medium">{route.from}</span>
-            <ArrowRight className="size-4 text-emerald-500 shrink-0 mx-2" />
-            <span className="font-medium">{route.to}</span>
+          <div key={index} className="flex flex-wrap items-center gap-x-2 gap-y-1 rounded-2xl bg-card px-5 py-4 text-sm shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md hover:ring-emerald-500/50">
+            <span className="break-words font-medium">{route.from}</span>
+            <ArrowRight className="mx-2 size-4 shrink-0 text-emerald-500" />
+            <span className="break-words font-medium">{route.to}</span>
           </div>
         ))}
       </div>

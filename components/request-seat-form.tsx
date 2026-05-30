@@ -27,7 +27,7 @@ export function RequestSeatForm({
 
   if (!open) {
     return (
-      <Button size="lg" onClick={() => setOpen(true)}>
+      <Button size="lg" className="w-full sm:w-auto" onClick={() => setOpen(true)}>
         Popros o miejsce
       </Button>
     );
@@ -36,7 +36,7 @@ export function RequestSeatForm({
   return (
     <form
       action={requestSeat}
-      className="grid gap-4 rounded-xl bg-card p-5 ring-1 ring-foreground/10"
+      className="grid min-w-0 gap-4 rounded-xl bg-card p-5 ring-1 ring-foreground/10"
     >
       <input type="hidden" name="rideId" value={rideId} />
       <p className="text-sm font-medium">Potwierdz szczegoly prosby</p>
@@ -71,11 +71,16 @@ export function RequestSeatForm({
           placeholder="np. Moge dojsc do rynku, jadę z malym bagazem."
         />
       </div>
-      <div className="flex gap-2">
-        <Button type="submit">
+      <div className="flex flex-wrap gap-2">
+        <Button type="submit" className="flex-1 sm:flex-none">
           <Send /> Wyslij prosbe
         </Button>
-        <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
+        <Button
+          type="button"
+          variant="ghost"
+          className="flex-1 sm:flex-none"
+          onClick={() => setOpen(false)}
+        >
           Anuluj
         </Button>
       </div>

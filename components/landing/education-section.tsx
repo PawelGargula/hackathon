@@ -28,7 +28,7 @@ export function EducationSection() {
           {facts.map((fact, index) => (
             <Card key={index} className="border-none shadow-sm ring-1 ring-border/50 bg-white dark:bg-zinc-900 hover:shadow-md transition-all">
               <CardContent className="p-6 flex gap-4 items-start">
-                <div className="text-emerald-500 font-serif text-4xl leading-none">"</div>
+                <div className="text-emerald-500 font-serif text-4xl leading-none">&quot;</div>
                 <p className="text-lg font-medium pt-2">{fact}</p>
               </CardContent>
             </Card>

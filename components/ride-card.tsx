@@ -39,13 +39,13 @@ export function RideCard({
     ride.kind === "BUS" ? formatPrice(ride.ticketPrice) : formatPrice(ride.price);
 
   return (
-    <div className="group flex flex-col gap-3 rounded-2xl bg-card p-4 ring-1 ring-border transition-shadow hover:shadow-md">
-      <div className="flex items-center justify-between gap-2">
+    <div className="group flex min-w-0 flex-col gap-3 rounded-2xl bg-card p-4 ring-1 ring-border transition-shadow hover:shadow-md">
+      <div className="flex min-w-0 items-center justify-between gap-2">
         <div className="shrink-0">
           <RideTypeBadge kind={ride.kind} />
         </div>
         {reasons && reasons.length > 0 && (
-          <div className="flex flex-wrap justify-end gap-1 min-w-0">
+          <div className="flex min-w-0 flex-wrap justify-end gap-1">
             {reasons.slice(0, 2).map((r) => (
               <Badge key={r} variant="outline" className="truncate max-w-full">
                 {r}
@@ -55,32 +55,32 @@ export function RideCard({
         )}
       </div>
 
-      <div className="flex items-start justify-between gap-3">
+      <div className="flex min-w-0 items-start justify-between gap-3">
         <div className="min-w-0 flex-1">
-          <div className="text-[15px] font-semibold leading-tight break-words">
-            <span>{ride.originLabel}</span>
-            <ArrowRight className="inline-block mx-1.5 -mt-0.5 size-4 shrink-0 text-primary" />
-            <span>{ride.destinationLabel}</span>
+          <div className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-[15px] font-semibold leading-tight">
+            <span className="break-words">{ride.originLabel}</span>
+            <ArrowRight className="size-4 shrink-0 text-primary" />
+            <span className="break-words">{ride.destinationLabel}</span>
           </div>
           <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-muted-foreground">
-            <span className="inline-flex items-center gap-1 min-w-0 truncate">
+            <span className="inline-flex min-w-0 items-center gap-1">
               <Clock className="size-3.5 shrink-0" />
-              <span className="truncate">{formatDateTime(ride.departureAt)}</span>
+              <span className="break-words">{formatDateTime(ride.departureAt)}</span>
             </span>
             {ride.kind === "CAR" ? (
-              <span className="inline-flex items-center gap-1 min-w-0 truncate">
+              <span className="inline-flex min-w-0 items-center gap-1">
                 <Users className="size-3.5 shrink-0" />
-                <span className="truncate">{ride.availableSeats} wolnych miejsc</span>
+                <span className="break-words">{ride.availableSeats} wolnych miejsc</span>
               </span>
             ) : (
-              <span className="truncate min-w-0">
+              <span className="min-w-0 break-words">
                 {ride.operator}
                 {ride.lineNumber ? ` · linia ${ride.lineNumber}` : ""}
               </span>
             )}
           </div>
         </div>
-        <div className="text-right shrink-0">
+        <div className="shrink-0 text-right">
           <p className="font-heading text-lg font-bold text-primary">{cost}</p>
           {ride.kind === "CAR" && ride.price ? (
             <p className="text-[11px] text-muted-foreground">za miejsce</p>
@@ -88,11 +88,13 @@ export function RideCard({
         </div>
       </div>
 
-      <div className="flex items-center justify-between gap-2 border-t border-border pt-3">
+      <div className="flex min-w-0 flex-wrap items-center justify-between gap-2 border-t border-border pt-3">
         {ride.kind === "CAR" && ride.driver ? (
-          <DriverChip driver={ride.driver} className="min-w-0" />
+          <DriverChip driver={ride.driver} className="min-w-0 flex-1" />
         ) : (
-          <span className="text-xs text-muted-foreground truncate min-w-0">Kurs publiczny MPK</span>
+          <span className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
+            Kurs publiczny MPK
+          </span>
         )}
         <Link
           href={target}
@@ -118,7 +120,7 @@ export function DriverChip({
   className?: string;
 }) {
   return (
-    <div className={cn("flex items-center gap-2 min-w-0", className)}>
+    <div className={cn("flex min-w-0 items-center gap-2", className)}>
       {driver.image ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
@@ -131,9 +133,9 @@ export function DriverChip({
           {(driver.name ?? "?").charAt(0).toUpperCase()}
         </span>
       )}
-      <div className="leading-tight min-w-0">
-        <p className="flex items-center gap-1 text-sm font-medium">
-          <span className="truncate">{driver.name ?? "Kierowca"}</span>
+      <div className="min-w-0 leading-tight">
+        <p className="flex min-w-0 items-center gap-1 text-sm font-medium">
+          <span className="min-w-0 truncate">{driver.name ?? "Kierowca"}</span>
           {driver.verified && (
             <BadgeCheck className="size-3.5 shrink-0 text-primary" aria-label="zweryfikowany" />
           )}

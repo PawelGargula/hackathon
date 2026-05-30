@@ -6,11 +6,14 @@ import { HeroIllustration } from "@/components/illustrations/hero-illustration";
 export function HeroSection() {
   return (
     <>
-      <section className="flex flex-col gap-12 lg:flex-row lg:items-center">
-        <div className="flex-1 space-y-6">
-          <div className="flex items-center gap-3">
-            <span className="inline-flex items-center gap-2 rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
-              <MapPin className="size-3.5" /> Dołącz do lokalnej społeczności kierowców i pasażerów. Jedziemy razem w dobrą stronę.
+      <section className="flex min-w-0 flex-col gap-12 lg:flex-row lg:items-center">
+        <div className="min-w-0 flex-1 space-y-6">
+          <div className="flex min-w-0 items-center gap-3">
+            <span className="inline-flex min-w-0 items-start gap-2 rounded-full bg-emerald-600/10 px-3 py-1 text-xs font-medium text-emerald-700 dark:text-emerald-400">
+              <MapPin className="mt-0.5 size-3.5 shrink-0" />
+              <span className="min-w-0 break-words">
+                Dołącz do lokalnej społeczności kierowców i pasażerów. Jedziemy razem w dobrą stronę.
+              </span>
             </span>
           </div>
           <h1 className="max-w-3xl font-heading text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl">

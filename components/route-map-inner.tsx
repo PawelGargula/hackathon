@@ -103,7 +103,9 @@ export default function RouteMapInner({
                   position={[p.lat, p.lng]}
                   icon={ICONS[role]}
                 >
-                  <Popup>{p.label}</Popup>
+                  <Popup>
+                    <span className="block max-w-48 break-words">{p.label}</span>
+                  </Popup>
                 </Marker>
               );
             })}

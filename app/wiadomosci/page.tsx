@@ -36,7 +36,7 @@ export default async function MessagesPage() {
   });
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="mx-auto max-w-3xl min-w-0">
       <h1 className="font-heading text-2xl font-bold tracking-tight">
         Wiadomości
       </h1>
@@ -63,40 +63,42 @@ export default async function MessagesPage() {
             return (
               <div
                 key={t.id}
-                className="rounded-2xl bg-card p-4 ring-1 ring-border"
+                className="min-w-0 rounded-2xl bg-card p-4 ring-1 ring-border"
               >
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex items-center gap-2">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div className="flex min-w-0 items-center gap-2">
                     {counterpart?.image ? (
                       // eslint-disable-next-line @next/next/no-img-element
                       <img
                         src={counterpart.image}
                         alt=""
-                        className="size-9 rounded-full object-cover"
+                        className="size-9 shrink-0 rounded-full object-cover"
                       />
                     ) : (
-                      <span className="grid size-9 place-items-center rounded-full bg-primary/10 text-sm font-bold text-primary">
+                      <span className="grid size-9 shrink-0 place-items-center rounded-full bg-primary/10 text-sm font-bold text-primary">
                         {(counterpart?.name ?? "?").charAt(0).toUpperCase()}
                       </span>
                     )}
-                    <div className="leading-tight">
-                      <p className="text-sm font-semibold">
-                        {counterpart?.name ?? "Użytkownik"}
-                        <span className="ml-1 text-xs font-normal text-muted-foreground">
+                    <div className="min-w-0 leading-tight">
+                      <p className="flex min-w-0 items-baseline gap-1 text-sm font-semibold">
+                        <span className="min-w-0 truncate">
+                          {counterpart?.name ?? "Użytkownik"}
+                        </span>
+                        <span className="shrink-0 text-xs font-normal text-muted-foreground">
                           {isDriver ? "(pasażer)" : "(kierowca)"}
                         </span>
                       </p>
                       <Link
                         href={`/przejazd/${t.ride.id}`}
-                        className="flex items-center gap-1 text-xs text-muted-foreground hover:underline"
+                        className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs text-muted-foreground hover:underline"
                       >
-                        {t.ride.originLabel}
-                        <ArrowRight className="size-3 text-primary" />
-                        {t.ride.destinationLabel}
+                        <span className="break-words">{t.ride.originLabel}</span>
+                        <ArrowRight className="size-3 shrink-0 text-primary" />
+                        <span className="break-words">{t.ride.destinationLabel}</span>
                       </Link>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex flex-wrap items-center gap-2">
                     <RideTypeBadge kind={t.ride.kind} />
                     <RequestStatusBadge status={t.status} />
                   </div>

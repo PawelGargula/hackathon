@@ -29,8 +29,8 @@ export function RequestThread({
   const formRef = useRef<HTMLFormElement>(null);
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex flex-col gap-1.5">
+    <div className="flex min-w-0 flex-col gap-2">
+      <div className="flex min-w-0 flex-col gap-1.5">
         {messages.length === 0 && (
           <p className="text-xs text-muted-foreground">Brak wiadomości.</p>
         )}
@@ -46,7 +46,7 @@ export function RequestThread({
             >
               <div
                 className={cn(
-                  "max-w-[85%] rounded-lg px-3 py-1.5 text-sm",
+                "max-w-[85%] break-words rounded-lg px-3 py-1.5 text-sm",
                   mine
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-foreground",
@@ -69,7 +69,7 @@ export function RequestThread({
             await sendMessage(formData);
             formRef.current?.reset();
           }}
-          className="flex items-center gap-2"
+          className="flex min-w-0 items-center gap-2"
         >
           <input type="hidden" name="requestId" value={requestId} />
           <Input
@@ -77,6 +77,7 @@ export function RequestThread({
             placeholder="Napisz wiadomość..."
             autoComplete="off"
             required
+            className="min-w-0"
           />
           <Button type="submit" size="icon" aria-label="Wyślij">
             <Send />

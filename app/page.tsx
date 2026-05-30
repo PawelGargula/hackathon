@@ -62,7 +62,7 @@ async function Dashboard({
   }));
 
   return (
-    <div className="mx-auto max-w-6xl space-y-8">
+    <div className="mx-auto max-w-6xl space-y-8 min-w-0">
       {/* Hero + quick search */}
       <section className="relative rounded-[2rem] bg-emerald-50 px-6 py-8 dark:bg-emerald-950/30 sm:px-10 sm:py-12">
         <div className="relative z-10 flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
@@ -119,11 +119,11 @@ async function Dashboard({
       <div className="grid gap-6 lg:grid-cols-[1.5fr_1fr]">
         {/* Recent rides */}
         <section>
-          <div className="mb-3 flex items-center justify-between">
-            <h2 className="font-heading text-lg font-bold">Ostatnie przejazdy</h2>
+          <div className="mb-3 flex min-w-0 items-center justify-between gap-3">
+            <h2 className="min-w-0 font-heading text-lg font-bold">Ostatnie przejazdy</h2>
             <Link
               href="/moje-przejazdy"
-              className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+              className="inline-flex shrink-0 items-center gap-1 text-sm text-primary hover:underline"
             >
               Zobacz wszystkie <ArrowRight className="size-4" />
             </Link>
@@ -174,14 +174,14 @@ async function Dashboard({
               {data.popularRoutes.map((r) => (
                 <li
                   key={`${r.from}-${r.to}`}
-                  className="flex items-center justify-between gap-2 rounded-2xl bg-card px-5 py-4 text-sm shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md"
+                  className="flex min-w-0 items-center justify-between gap-3 rounded-2xl bg-card px-5 py-4 text-sm shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md"
                 >
-                  <span className="flex items-center gap-2 font-medium">
-                    {r.from}
-                    <ArrowRight className="size-3.5 text-primary" />
-                    {r.to}
+                  <span className="flex flex-wrap min-w-0 flex-1 items-center gap-x-2 gap-y-1 font-medium">
+                    <span className="break-words">{r.from}</span>
+                    <ArrowRight className="size-3.5 shrink-0 text-primary" />
+                    <span className="break-words">{r.to}</span>
                   </span>
-                  <span className="text-muted-foreground">{r.distanceKm} km</span>
+                  <span className="shrink-0 text-muted-foreground">{r.distanceKm} km</span>
                 </li>
               ))}
             </ul>
@@ -191,11 +191,11 @@ async function Dashboard({
 
       {/* Achievements */}
       <section>
-        <div className="mb-3 flex items-center justify-between">
-          <h2 className="font-heading text-lg font-bold">Odznaki</h2>
+        <div className="mb-3 flex min-w-0 items-center justify-between gap-3">
+          <h2 className="min-w-0 font-heading text-lg font-bold">Odznaki</h2>
           <Link
             href="/konto"
-            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+            className="inline-flex shrink-0 items-center gap-1 text-sm text-primary hover:underline"
           >
             Zobacz wszystkie <ArrowRight className="size-4" />
           </Link>
@@ -210,9 +210,9 @@ function RecentRideRow({ ride }: { ride: RecentRide }) {
   return (
     <Link
       href={`/przejazd/${ride.rideId}`}
-      className="flex items-center justify-between gap-3 rounded-2xl bg-card p-4 shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md hover:ring-border min-w-0"
+      className="flex min-w-0 items-start sm:items-center justify-between gap-3 rounded-2xl bg-card p-4 shadow-sm ring-1 ring-border/50 transition-all hover:shadow-md hover:ring-border"
     >
-      <div className="flex items-center gap-3 min-w-0 flex-1">
+      <div className="flex min-w-0 flex-1 items-start sm:items-center gap-3">
         <span className="grid size-10 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
           {ride.kind === "BUS" ? (
             <Bus className="size-5" />
@@ -221,12 +221,12 @@ function RecentRideRow({ ride }: { ride: RecentRide }) {
           )}
         </span>
         <div className="min-w-0 flex-1">
-          <p className="flex items-center gap-1.5 text-sm font-semibold">
-            <span className="truncate min-w-0">{ride.originLabel}</span>
+          <p className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm font-semibold">
+            <span className="break-words">{ride.originLabel}</span>
             <ArrowRight className="size-3.5 shrink-0 text-primary" />
-            <span className="truncate min-w-0">{ride.destinationLabel}</span>
+            <span className="break-words">{ride.destinationLabel}</span>
           </p>
-          <p className="text-xs text-muted-foreground truncate">
+          <p className="text-xs text-muted-foreground break-words mt-0.5">
             {formatDateTime(ride.departureAt)}
             {ride.counterpart
               ? ` · ${ride.role === "driver" ? "pasażer" : "kierowca"}: ${ride.counterpart}`
@@ -234,7 +234,7 @@ function RecentRideRow({ ride }: { ride: RecentRide }) {
           </p>
         </div>
       </div>
-      <span className="font-heading text-sm font-bold text-primary shrink-0">
+      <span className="shrink-0 font-heading text-sm font-bold text-primary mt-1 sm:mt-0">
         {formatPrice(ride.price)}
       </span>
     </Link>
@@ -260,11 +260,11 @@ function StatCard({
           : "bg-card ring-border/50"
       }`}
     >
-      <div className="flex items-center gap-2">
+      <div className="flex min-w-0 items-center gap-2">
         <Icon
           className={`size-5 ${accent ? "text-emerald-600" : "text-emerald-600/70"}`}
         />
-        <p className="text-xs font-medium text-muted-foreground">{label}</p>
+        <p className="min-w-0 text-xs font-medium leading-snug text-muted-foreground">{label}</p>
       </div>
       <p className="font-heading text-3xl font-bold">{value}</p>
     </div>
