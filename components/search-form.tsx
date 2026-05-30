@@ -1,6 +1,6 @@
 "use client";
 
-import { Search } from "lucide-react";
+import { Search, User } from "lucide-react";
 import {
   LocationAutocomplete,
   type GeoPoint,
@@ -63,18 +63,21 @@ export function SearchForm({ defaults }: Props) {
       </div>
       <div className="relative z-0 hidden h-8 w-px bg-border xl:block" />
       <div className="relative z-0 flex min-w-0 gap-3 xl:w-auto">
-        <div className="grid w-20 gap-1.5 xl:gap-0">
+        <div className="grid w-24 gap-1.5 xl:gap-0">
           <Label htmlFor="seats" className="xl:sr-only">Miejsca</Label>
-          <Input
-            id="seats"
-            name="seats"
-            type="number"
-            min={1}
-            max={8}
-            defaultValue={defaults?.seats ?? "1"}
-            className="xl:border-none xl:bg-transparent xl:shadow-none xl:ring-0"
-            title="Liczba miejsc"
-          />
+          <div className="relative flex items-center">
+            <User className="absolute left-3 size-4 text-muted-foreground xl:left-2" />
+            <Input
+              id="seats"
+              name="seats"
+              type="number"
+              min={1}
+              max={8}
+              defaultValue={defaults?.seats ?? "1"}
+              className="pl-9 xl:border-none xl:bg-transparent xl:shadow-none xl:ring-0 xl:pl-8"
+              title="Liczba miejsc"
+            />
+          </div>
         </div>
       </div>
       <Button type="submit" size="lg" className="w-full xl:w-auto xl:rounded-full">
