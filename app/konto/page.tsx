@@ -94,8 +94,8 @@ export default async function AccountPage({
           </span>
         )}
         <div className="min-w-0 flex-1">
-          <h1 className="flex min-w-0 items-center gap-2 font-heading text-2xl font-bold tracking-tight">
-            <span className="min-w-0 truncate">{session.user.name ?? "Konto"}</span>
+          <h1 className="flex flex-wrap items-center gap-2 font-heading text-2xl font-bold tracking-tight">
+            <span className="min-w-0 break-words">{session.user.name ?? "Konto"}</span>
             {profile?.verified && (
               <BadgeCheck className="size-5 shrink-0 text-primary" aria-label="zweryfikowany" />
             )}
@@ -214,7 +214,7 @@ export default async function AccountPage({
                   key={z.pair}
                   className="flex min-w-0 items-center justify-between gap-3 rounded-lg bg-card px-3 py-2 text-sm ring-1 ring-border"
                 >
-                  <span className="min-w-0 truncate">{z.pair}</span>
+                  <span className="min-w-0 break-words">{z.pair}</span>
                   <span className="shrink-0 text-muted-foreground">
                     {z.count} {z.count === 1 ? "przejazd" : "przejazdy"}
                   </span>

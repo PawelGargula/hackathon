@@ -191,7 +191,7 @@ async function DriverView({ userId }: { userId: string }) {
                   className="flex flex-col gap-2 rounded-xl border border-border p-3"
                 >
                   <div className="flex min-w-0 flex-wrap items-center justify-between gap-2">
-                    <span className="flex min-w-0 items-center gap-2 text-sm font-medium">
+                    <span className="flex flex-wrap items-center gap-2 text-sm font-medium">
                       {req.passenger.image ? (
                         // eslint-disable-next-line @next/next/no-img-element
                         <img
@@ -204,7 +204,7 @@ async function DriverView({ userId }: { userId: string }) {
                           {(req.passenger.name ?? "?").charAt(0).toUpperCase()}
                         </span>
                       )}
-                      <span className="min-w-0 truncate">
+                      <span className="min-w-0 break-words">
                         {req.passenger.name ?? "Pasażer"}
                       </span>
                       <span className="shrink-0 text-muted-foreground">

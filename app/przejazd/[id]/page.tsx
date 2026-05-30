@@ -172,8 +172,8 @@ export default async function RideDetailsPage({
                   </span>
                 )}
                 <div className="min-w-0">
-                  <p className="flex min-w-0 items-center gap-1 font-medium">
-                    <span className="min-w-0 truncate">{ride.driver.name ?? "Kierowca"}</span>
+                  <p className="flex flex-wrap items-center gap-1 font-medium">
+                    <span className="min-w-0 break-words">{ride.driver.name ?? "Kierowca"}</span>
                     {ride.driver.verified && (
                       <BadgeCheck className="size-4 shrink-0 text-primary" />
                     )}

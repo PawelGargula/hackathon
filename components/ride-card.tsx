@@ -92,7 +92,7 @@ export function RideCard({
         {ride.kind === "CAR" && ride.driver ? (
           <DriverChip driver={ride.driver} className="min-w-0 flex-1" />
         ) : (
-          <span className="min-w-0 flex-1 truncate text-xs text-muted-foreground">
+          <span className="min-w-0 flex-1 break-words text-xs text-muted-foreground">
             Kurs publiczny MPK
           </span>
         )}
@@ -134,8 +134,8 @@ export function DriverChip({
         </span>
       )}
       <div className="min-w-0 leading-tight">
-        <p className="flex min-w-0 items-center gap-1 text-sm font-medium">
-          <span className="min-w-0 truncate">{driver.name ?? "Kierowca"}</span>
+        <p className="flex flex-wrap items-center gap-1 text-sm font-medium">
+          <span className="min-w-0 break-words">{driver.name ?? "Kierowca"}</span>
           {driver.verified && (
             <BadgeCheck className="size-3.5 shrink-0 text-primary" aria-label="zweryfikowany" />
           )}

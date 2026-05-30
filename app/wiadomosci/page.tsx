@@ -80,8 +80,8 @@ export default async function MessagesPage() {
                       </span>
                     )}
                     <div className="min-w-0 leading-tight">
-                      <p className="flex min-w-0 items-baseline gap-1 text-sm font-semibold">
-                        <span className="min-w-0 truncate">
+                      <p className="flex flex-wrap items-baseline gap-1 text-sm font-semibold">
+                        <span className="min-w-0 break-words">
                           {counterpart?.name ?? "Użytkownik"}
                         </span>
                         <span className="shrink-0 text-xs font-normal text-muted-foreground">
