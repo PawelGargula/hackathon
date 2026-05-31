@@ -14,7 +14,7 @@ import {
 import { auth } from "@/lib/auth";
 import { getDashboardData, type RecentRide } from "@/lib/rides";
 import { getDashboardAchievements } from "@/lib/gamification";
-import { formatDateTime, formatPrice } from "@/lib/format";
+import { formatDateTime, formatPrice, formatAddress } from "@/lib/format";
 import { SearchForm } from "@/components/search-form";
 import { Co2Tree } from "@/components/co2-tree";
 import { BadgeGrid } from "@/components/badge-grid";
@@ -223,9 +223,9 @@ function RecentRideRow({ ride }: { ride: RecentRide }) {
         </span>
         <div className="min-w-0 flex-1">
           <p className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm font-semibold">
-            <span className="break-words">{ride.originLabel}</span>
+            <span className="break-words">{formatAddress(ride.originLabel)}</span>
             <ArrowRight className="size-3.5 shrink-0 text-primary" />
-            <span className="break-words">{ride.destinationLabel}</span>
+            <span className="break-words">{formatAddress(ride.destinationLabel)}</span>
           </p>
           <p className="text-xs text-muted-foreground break-words mt-0.5">
             {formatDateTime(ride.departureAt)}

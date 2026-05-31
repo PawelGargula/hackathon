@@ -10,7 +10,7 @@ import { Badge } from "@/components/ui/badge";
 import { RideTypeBadge } from "@/components/ride-type-badge";
 import { RequestStatusBadge } from "@/components/request-status-badge";
 import { RequestThread } from "@/components/request-thread";
-import { formatDateTime, formatPrice } from "@/lib/format";
+import { formatDateTime, formatPrice, formatAddress } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 type RequestWithRide = Awaited<ReturnType<typeof loadPassengerRequests>>[number];
@@ -168,9 +168,9 @@ async function DriverView({ userId }: { userId: string }) {
             <div className="flex flex-col items-start gap-3 border-b border-border p-4 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0 flex-1">
                 <p className="flex flex-wrap items-center gap-x-2 gap-y-1 font-heading text-base font-bold">
-                  <span className="break-words">{ride.originLabel}</span>
+                  <span className="break-words">{formatAddress(ride.originLabel)}</span>
                   <ArrowRight className="size-4 shrink-0 text-primary" />
-                  <span className="break-words">{ride.destinationLabel}</span>
+                  <span className="break-words">{formatAddress(ride.destinationLabel)}</span>
                 </p>
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {formatDateTime(ride.departureAt)}
@@ -217,11 +217,11 @@ async function DriverView({ userId }: { userId: string }) {
                   <div className="flex flex-col gap-1 text-xs text-muted-foreground">
                     <span className="inline-flex min-w-0 items-start gap-1">
                       <MapPin className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                      <span className="min-w-0 break-words">Odbiór: {req.pickupLabel}</span>
+                      <span className="min-w-0 break-words">Odbiór: {formatAddress(req.pickupLabel)}</span>
                     </span>
                     <span className="inline-flex min-w-0 items-start gap-1">
                       <MapPin className="mt-0.5 size-3.5 shrink-0 text-primary" />
-                      <span className="min-w-0 break-words">Cel: {req.dropoffLabel}</span>
+                      <span className="min-w-0 break-words">Cel: {formatAddress(req.dropoffLabel)}</span>
                     </span>
                   </div>
 
@@ -329,9 +329,9 @@ function RequestCard({
         <span className="grid size-8 shrink-0 place-items-center rounded-full bg-primary/10 text-primary">
           {req.ride.kind === "BUS" ? <Bus className="size-4" /> : <Car className="size-4" />}
         </span>
-        <span className="min-w-0 break-words mt-1">{req.ride.originLabel}</span>
+        <span className="min-w-0 break-words mt-1">{formatAddress(req.ride.originLabel)}</span>
         <ArrowRight className="size-4 shrink-0 text-primary mt-1.5" />
-        <span className="min-w-0 break-words mt-1">{req.ride.destinationLabel}</span>
+        <span className="min-w-0 break-words mt-1">{formatAddress(req.ride.destinationLabel)}</span>
       </Link>
 
       <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted-foreground">

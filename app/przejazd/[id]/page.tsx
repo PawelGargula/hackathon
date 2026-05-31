@@ -21,7 +21,7 @@ import { RideTypeBadge } from "@/components/ride-type-badge";
 import { RequestSeatForm } from "@/components/request-seat-form";
 import { RouteMap, type MapPoint } from "@/components/route-map";
 import { SignInButton } from "@/components/sign-in-button";
-import { formatDateTime, formatPrice, formatTime } from "@/lib/format";
+import { formatDateTime, formatPrice, formatTime, formatAddress } from "@/lib/format";
 import { cn } from "@/lib/utils";
 
 const statusLabel: Record<string, string> = {
@@ -57,14 +57,14 @@ export default async function RideDetailsPage({
     : null;
 
   const stops = [
-    { label: ride.originLabel, lat: ride.originLat, lng: ride.originLng },
+    { label: formatAddress(ride.originLabel), lat: ride.originLat, lng: ride.originLng },
     ...ride.waypoints.map((w) => ({
-      label: w.locLabel,
+      label: formatAddress(w.locLabel),
       lat: w.locLat,
       lng: w.locLng,
     })),
     {
-      label: ride.destinationLabel,
+      label: formatAddress(ride.destinationLabel),
       lat: ride.destinationLat,
       lng: ride.destinationLng,
     },
@@ -101,9 +101,9 @@ export default async function RideDetailsPage({
             </div>
 
             <h1 className="mt-3 flex flex-wrap items-center gap-x-2 gap-y-1 font-heading text-2xl font-bold tracking-tight">
-              <span className="min-w-0 break-words">{ride.originLabel}</span>
+              <span className="min-w-0 break-words">{formatAddress(ride.originLabel)}</span>
               <ArrowRight className="size-5 shrink-0 text-primary" />
-              <span className="min-w-0 break-words">{ride.destinationLabel}</span>
+              <span className="min-w-0 break-words">{formatAddress(ride.destinationLabel)}</span>
             </h1>
 
             <div className="mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm text-muted-foreground">

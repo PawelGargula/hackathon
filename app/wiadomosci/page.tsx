@@ -7,6 +7,7 @@ import { buttonVariants } from "@/components/ui/button";
 import { RideTypeBadge } from "@/components/ride-type-badge";
 import { RequestStatusBadge } from "@/components/request-status-badge";
 import { RequestThread } from "@/components/request-thread";
+import { formatAddress } from "@/lib/format";
 
 export default async function MessagesPage() {
   const session = await auth();
@@ -92,9 +93,9 @@ export default async function MessagesPage() {
                         href={`/przejazd/${t.ride.id}`}
                         className="flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-xs text-muted-foreground hover:underline"
                       >
-                        <span className="break-words">{t.ride.originLabel}</span>
+                        <span className="break-words">{formatAddress(t.ride.originLabel)}</span>
                         <ArrowRight className="size-3 shrink-0 text-primary" />
-                        <span className="break-words">{t.ride.destinationLabel}</span>
+                        <span className="break-words">{formatAddress(t.ride.destinationLabel)}</span>
                       </Link>
                     </div>
                   </div>

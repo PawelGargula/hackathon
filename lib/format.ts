@@ -40,3 +40,21 @@ export function formatPrice(price: number | null): string {
     maximumFractionDigits: 2,
   }).format(price);
 }
+
+export function formatAddress(address: string | null | undefined): string {
+  if (!address) return "";
+  
+  return address
+    .split(",")
+    .map((part) => part.trim())
+    .filter((part) => {
+      if (!part) return false;
+      const lower = part.toLowerCase();
+      if (lower.startsWith("powiat")) return false;
+      if (lower.startsWith("województwo")) return false;
+      if (lower === "polska") return false;
+      if (/^\d{2}-\d{3}$/.test(part)) return false;
+      return true;
+    })
+    .join(", ");
+}
