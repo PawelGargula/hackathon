@@ -247,17 +247,21 @@ Zaczynasz swoją przygodę ze wspólnymi przejazdami.
 
 Masz już pierwsze oszczędności CO₂.
 
-### Młode drzewko
+### Sadzonka
 
 Regularne przejazdy zaczynają dawać widoczny efekt.
 
-### Zdrowe drzewo
+### Młode drzewko
 
 Twoje codzienne wybory realnie pomagają ograniczać liczbę aut na drogach.
 
-### Eko bohater
+### Dorodne drzewo
 
 Jesteś przykładem dla innych użytkowników i aktywnie wspierasz lokalną zmianę.
+
+### Stary dąb
+
+Prawdziwy eko bohater! Twój wkład w ochronę środowiska jest ogromny.
 
 ---
 

@@ -107,8 +107,8 @@ export default async function SearchPage({
         Szukaj przejazdu
       </h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Wpisz skąd, dokąd i kiedy chcesz jechać. Pokażemy auta sąsiadów i kursy
-        MPK w jednej liście.
+        Wpisz skąd, dokąd i kiedy chcesz jechać. Pokażemy auta sąsiadów w
+        jednej liście.
       </p>
 
       <div className="mt-6">

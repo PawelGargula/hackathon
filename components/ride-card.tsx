@@ -113,7 +113,7 @@ export function RideCard({
           <DriverChip driver={ride.driver} className="min-w-0 flex-1" />
         ) : (
           <span className="min-w-0 flex-1 break-words text-xs text-muted-foreground">
-            Kurs publiczny MPK
+            Kurs publiczny
           </span>
         )}
         <Link

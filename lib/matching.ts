@@ -130,7 +130,7 @@ export function scoreRide<T extends RideForMatch>(
   }
   if (waypointNear) reasons.push("punkt po drodze");
   if (minutesDiff <= 30) reasons.push("podobna godzina");
-  if (ride.kind === "BUS") reasons.push("kurs MPK");
+  if (ride.kind === "BUS") reasons.push("autobus");
 
   return {
     ride,

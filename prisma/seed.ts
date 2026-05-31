@@ -349,67 +349,6 @@ async function main() {
     createdCarRides.push(ride);
   }
 
-  // --- BUS rides (MPK Nowy Sącz, curated) ---
-  const busLines: {
-    line: string;
-    origin: Loc;
-    destination: Loc;
-    departureAt: Date;
-    ticketPrice: number;
-    stops: Loc[];
-  }[] = [
-    {
-      line: "8",
-      origin: L.nsDworzec,
-      destination: L.nsMillenium,
-      departureAt: at(0, 7, 40),
-      ticketPrice: 4,
-      stops: [L.nsRynek, L.nsSzpital],
-    },
-    {
-      line: "12",
-      origin: L.nsDworzec,
-      destination: L.nsGorzkow,
-      departureAt: at(0, 8, 10),
-      ticketPrice: 4,
-      stops: [L.nsRynek],
-    },
-    {
-      line: "20",
-      origin: L.nsRynek,
-      destination: L.nsSzpital,
-      departureAt: at(0, 8, 20),
-      ticketPrice: 4,
-      stops: [L.nsMillenium],
-    },
-  ];
-
-  const createdBusRides = [];
-  for (const b of busLines) {
-    const ride = await prisma.ride.create({
-      data: {
-        kind: "BUS",
-        operator: "MPK Nowy Sącz",
-        lineNumber: b.line,
-        ticketPrice: b.ticketPrice,
-        ...originData(b.origin),
-        ...destinationData(b.destination),
-        departureAt: b.departureAt,
-        seats: 30,
-        description: "Kurs komunikacji miejskiej MPK Nowy Sącz.",
-        waypoints: {
-          create: b.stops.map((w, i) => ({
-            order: i,
-            locLabel: w.label,
-            locLocality: w.locality,
-            locLat: w.lat,
-            locLng: w.lng,
-          })),
-        },
-      },
-    });
-    createdBusRides.push(ride);
-  }
 
   // --- Requests (CAR) in various statuses, with message threads ---
   // Pending request with a short conversation.
@@ -487,35 +426,8 @@ async function main() {
     },
   });
 
-  // --- Bus joins (auto-accepted), counted to stats ---
-  for (const passenger of [tomasz, ewa]) {
-    const bus = createdBusRides[0];
-    const distance = haversineKm(
-      { lat: bus.originLat, lng: bus.originLng },
-      { lat: bus.destinationLat, lng: bus.destinationLng },
-    );
-    await prisma.rideRequest.create({
-      data: {
-        rideId: bus.id,
-        passengerId: passenger.id,
-        status: "ACCEPTED",
-        pickupLabel: bus.originLabel,
-        pickupLat: bus.originLat,
-        pickupLng: bus.originLng,
-        dropoffLabel: bus.destinationLabel,
-        dropoffLat: bus.destinationLat,
-        dropoffLng: bus.destinationLng,
-        seatsRequested: 1,
-        distanceKm: Math.max(1, Math.round(distance * 10) / 10),
-        co2SavedKg: roundKg(co2SavedKg("BUS", Math.max(1, distance))),
-        originZone: bus.originLocality,
-        destinationZone: bus.destinationLocality,
-      },
-    });
-  }
-
   console.log(
-    `Done. Users: ${totalDemoUsers}, CAR rides: ${createdCarRides.length}, BUS rides: ${createdBusRides.length}.`,
+    `Done. Users: ${totalDemoUsers}, CAR rides: ${createdCarRides.length}.`,
   );
 }
 

@@ -5,9 +5,10 @@ import { getTreeLevel } from "@/lib/gamification";
 const levels = [
   { name: "Nasionko", desc: "Zaczynasz swoją przygodę ze wspólnymi przejazdami." },
   { name: "Kiełek", desc: "Masz już pierwsze oszczędności CO₂." },
-  { name: "Młode drzewko", desc: "Regularne przejazdy zaczynają dawać widoczny efekt." },
-  { name: "Zdrowe drzewo", desc: "Twoje codzienne wybory realnie pomagają ograniczać liczbę aut na drogach." },
-  { name: "Eko bohater", desc: "Jesteś przykładem dla innych użytkowników i aktywnie wspierasz lokalną zmianę." },
+  { name: "Sadzonka", desc: "Regularne przejazdy zaczynają dawać widoczny efekt." },
+  { name: "Młode drzewko", desc: "Twoje codzienne wybory realnie pomagają ograniczać liczbę aut na drogach." },
+  { name: "Dorodne drzewo", desc: "Jesteś przykładem dla innych użytkowników i aktywnie wspierasz lokalną zmianę." },
+  { name: "Stary dąb", desc: "Prawdziwy eko bohater! Twój wkład w ochronę środowiska jest ogromny." },
 ];
 
 export function Co2TreeSection() {

@@ -1,4 +1,4 @@
-import { Wallet, Search, Leaf, Bus } from "lucide-react";
+import { Wallet, Search, Leaf } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 const benefits = [
@@ -13,14 +13,9 @@ const benefits = [
     description: "Nie musisz szukać transportu w wielu miejscach. W aplikacji widzisz dostępne trasy, godziny i wolne miejsca.",
   },
   {
-    icon: Bus,
-    title: "Integracja z MPK Nowy Sącz",
-    description: "Wyszukuj przejazdy sąsiedzkie i oficjalne kursy autobusowe MPK na jednej, wspólnej liście wyników.",
-  },
-  {
     icon: Leaf,
     title: "Ograniczaj emisję CO₂",
-    description: "Wybierając wspólny przejazd lub komunikację miejską, realnie zmniejszasz korki i dbasz o czystsze powietrze w regionie.",
+    description: "Wybierając wspólny przejazd, realnie zmniejszasz korki i dbasz o czystsze powietrze w regionie.",
   },
 ];
 
@@ -34,7 +29,7 @@ export function BenefitsSection() {
         </p>
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {benefits.map((benefit, index) => (
           <Card key={index} className="border-none shadow-sm ring-1 ring-border/50 bg-card hover:shadow-md transition-all">
             <CardHeader>

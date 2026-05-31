@@ -8,8 +8,8 @@ const steps = [
   },
   {
     icon: ListChecks,
-    title: "Wybierz przejazd lub autobus",
-    description: "Porównaj godziny wyjazdu, ceny, liczbę wolnych miejsc oraz oceny kierowców. Na tej samej liście zobaczysz też pasujące kursy MPK Nowy Sącz!",
+    title: "Wybierz przejazd",
+    description: "Porównaj godziny wyjazdu, ceny, liczbę wolnych miejsc oraz oceny kierowców.",
   },
   {
     icon: CheckCircle2,

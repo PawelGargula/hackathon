@@ -5,7 +5,7 @@ export function RideTypeBadge({ kind }: { kind: "CAR" | "BUS" }) {
   if (kind === "BUS") {
     return (
       <Badge variant="success">
-        <Bus /> autobus MPK
+        <Bus /> autobus
       </Badge>
     );
   }

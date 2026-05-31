@@ -74,7 +74,7 @@ enum RequestStatus {
   REJECTED
 }
 
-// Ride: a shared car ride (CAR, owned by a driver) or a curated MPK bus
+// Ride: a shared car ride (CAR, owned by a driver) or a curated public bus
 // service (BUS, no owner). Origin/destination locations are denormalized
 // snapshots from geocoding rather than a separate Location table.
 model Ride {
