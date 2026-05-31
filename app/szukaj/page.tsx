@@ -153,7 +153,12 @@ export default async function SearchPage({
               ) : (
                 <div className="flex min-w-0 flex-col gap-3">
                   {results.map((r) => (
-                    <RideCard key={r.ride.id} ride={r.ride} reasons={r.reasons} />
+                    <RideCard
+                      key={r.ride.id}
+                      ride={r.ride}
+                      reasons={r.reasons}
+                      originDistanceKm={r.originDistanceKm}
+                    />
                   ))}
                 </div>
               )}

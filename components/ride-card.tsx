@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BadgeCheck, Clock, Star, Users } from "lucide-react";
+import { ArrowRight, BadgeCheck, Clock, MapPin, Star, Users } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { buttonVariants } from "@/components/ui/button";
 import { LinkLoadingIndicator } from "@/components/link-loading-indicator";
@@ -26,18 +26,31 @@ export type RideCardData = {
   } | null;
 };
 
+function formatOriginDistance(km?: number): string | null {
+  if (km == null || !Number.isFinite(km)) return null;
+  if (km < 1) {
+    const meters = Math.round(km * 10) * 100;
+    if (meters < 100) return "tuż obok";
+    return `~${meters} m od Ciebie`;
+  }
+  return `~${Math.round(km)} km od Ciebie`;
+}
+
 export function RideCard({
   ride,
   reasons,
   href,
+  originDistanceKm,
 }: {
   ride: RideCardData;
   reasons?: string[];
   href?: string;
+  originDistanceKm?: number;
 }) {
   const target = href ?? `/przejazd/${ride.id}`;
   const cost =
     ride.kind === "BUS" ? formatPrice(ride.ticketPrice) : formatPrice(ride.price);
+  const distanceLabel = formatOriginDistance(originDistanceKm);
 
   return (
     <div className="group flex min-w-0 flex-col gap-3 rounded-2xl bg-card p-4 ring-1 ring-border transition-shadow hover:shadow-md">
@@ -77,6 +90,12 @@ export function RideCard({
               <span className="min-w-0 break-words">
                 {ride.operator}
                 {ride.lineNumber ? ` · linia ${ride.lineNumber}` : ""}
+              </span>
+            )}
+            {distanceLabel && (
+              <span className="inline-flex min-w-0 items-center gap-1 font-medium text-primary">
+                <MapPin className="size-3.5 shrink-0" />
+                <span className="break-words">{distanceLabel}</span>
               </span>
             )}
           </div>

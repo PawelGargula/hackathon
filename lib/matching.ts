@@ -43,13 +43,18 @@ export type ScoredRide<T extends RideForMatch = RideForMatch> = {
   minutesDiff: number;
 };
 
-// Distance (km) beyond which a point is considered unrelated for proximity.
-const PROXIMITY_REF_KM = 30;
+// Local-first matching: the pickup point must be within walking / short-drive
+// range, and the drop-off point reasonably close too.
+const ORIGIN_REF_KM = 3;
+const DEST_REF_KM = 5;
+// Hard cut-offs: rides outside these radii are not shown at all.
+const MAX_ORIGIN_KM = 3;
+const MAX_DEST_KM = 5;
 const DEFAULT_TIME_WINDOW_MIN = 180;
 const WAYPOINT_NEAR_KM = 4;
 
-function proximityScore(distanceKm: number): number {
-  return Math.max(0, 1 - distanceKm / PROXIMITY_REF_KM);
+function proximityScore(distanceKm: number, refKm: number): number {
+  return Math.max(0, 1 - distanceKm / refKm);
 }
 
 function sameLocality(a?: string | null, b?: string | null): boolean {
@@ -97,8 +102,8 @@ export function scoreRide<T extends RideForMatch>(
     waypointToDestination <= WAYPOINT_NEAR_KM;
 
   let score =
-    proximityScore(originDistanceKm) * 0.35 +
-    proximityScore(destinationDistanceKm) * 0.35 +
+    proximityScore(originDistanceKm, ORIGIN_REF_KM) * 0.4 +
+    proximityScore(destinationDistanceKm, DEST_REF_KM) * 0.3 +
     timeScore * 0.2;
 
   if (waypointNear) score += 0.1;
@@ -114,12 +119,13 @@ export function scoreRide<T extends RideForMatch>(
     query.destination.locality,
   );
 
-  if (originDistanceKm < 2 && destinationDistanceKm < 2) {
+  if (originDistanceKm < 1 && destinationDistanceKm < 1) {
     reasons.push("dokladna trasa");
   } else {
-    if (originDistanceKm < 5) reasons.push("blisko punktu startu");
+    if (originDistanceKm < 1) reasons.push("tuz obok");
+    else if (originDistanceKm < 3) reasons.push("blisko punktu startu");
     else if (originLocalityMatch) reasons.push("ta sama miejscowosc startu");
-    if (destinationDistanceKm < 5) reasons.push("blisko celu");
+    if (destinationDistanceKm < 3) reasons.push("blisko celu");
     else if (destLocalityMatch) reasons.push("ta sama miejscowosc celu");
   }
   if (waypointNear) reasons.push("punkt po drodze");
@@ -160,9 +166,11 @@ export function matchRides<T extends RideForMatch>(
       return true;
     })
     .map((ride) => scoreRide(ride, query))
-    // Drop clearly unrelated rides (both ends far away).
+    // Local-first: keep only rides whose pickup AND drop-off are nearby.
     .filter(
-      (s) => s.originDistanceKm < 60 || s.destinationDistanceKm < 60,
+      (s) =>
+        s.originDistanceKm <= MAX_ORIGIN_KM &&
+        s.destinationDistanceKm <= MAX_DEST_KM,
     )
     .sort((a, b) => b.score - a.score);
 }
