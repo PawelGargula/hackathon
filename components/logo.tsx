@@ -23,7 +23,7 @@ export function Logo({
             Razem w Drogę
           </span>
           <span className="text-[11px] font-medium text-muted-foreground">
-            Wspólne przejazdy po Sądecczyźnie
+            Wspólne przejazdy lokalnie
           </span>
         </span>
       )}
