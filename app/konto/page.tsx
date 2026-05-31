@@ -16,6 +16,7 @@ import { getDashboardAchievements } from "@/lib/gamification";
 import { Co2Tree } from "@/components/co2-tree";
 import { BadgeGrid } from "@/components/badge-grid";
 import { SignOutButton } from "@/components/sign-out-button";
+import { EmailDisplay } from "@/components/email-display";
 import { formatDate } from "@/lib/format";
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -102,7 +103,7 @@ export default async function AccountPage({
               <BadgeCheck className="size-5 shrink-0 text-primary" aria-label="zweryfikowany" />
             )}
           </h1>
-          <p className="break-all text-sm text-muted-foreground">{session.user.email}</p>
+          <EmailDisplay email={session.user.email} />
           <div className="mt-2 flex flex-wrap items-center gap-2 text-sm">
             <span className="inline-flex min-w-0 items-center gap-1 rounded-full bg-emerald-600/10 px-2.5 py-1 font-medium text-emerald-700 dark:text-emerald-400">
               {impact.tree.emoji} Poziom {impact.tree.level} · {impact.tree.name}
